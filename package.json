@@ -1,0 +1,22 @@
+{
+  "name": "recipe-app",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000r\u0000e\u0000c\u0000i\u0000p\u0000e\u0000-\u0000a\u0000p\u0000p\u0000\r\u0000 \u0000",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rpollock03/recipe-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rpollock03/recipe-app/issues"
+  },
+  "homepage": "https://github.com/rpollock03/recipe-app#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
