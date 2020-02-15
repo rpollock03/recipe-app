@@ -6,6 +6,10 @@ const port = 5000;
 // set templating engine to EJS
 app.set('view engine', 'ejs');
 
+// import route files
+const recipeRoutes = require("./routes/recipes")
+app.use("/recipes", recipeRoutes);
+
 
 //--
 // BASIC ROUTES
@@ -13,7 +17,7 @@ app.set('view engine', 'ejs');
 
 app.get("/", (req, res) => res.render("landing"));
 
-app.get("/recipes", (req, res) => res.render("recipes"))
+
 
 
 // Port

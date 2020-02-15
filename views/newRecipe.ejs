@@ -1,0 +1,31 @@
+<%- include("./partials/header") %>
+
+<h1> new recipe form </h1>
+
+<form action="/recipes" method="POST">
+    <label for="name"> Recipe Name </label>
+    <input name="name" id="name" type="text" placeholder="recipe name" required>
+    </br>
+    <label for="image"> Recipe Image </label>
+    <input name="image" id="image" type="text" placeholder="recipe image">
+    </br>
+    <label for="oneLiner">One Liner </label>
+    <input name="oneLiner" id="oneLiner" type="text" placeholder="describe your recipe">
+    </br>
+    <label for="method"> Method </label>
+    <textarea id="method" name="method">method here</textarea>
+    </br>
+    <p> add ingredients </p>
+    <input name="ingredient" id="ingredient" placeholder="add ingredient">
+    <input name="amount" id="amount" placeholder="#"><br>
+    <button type="submit">submit</button>
+
+</form>
+
+<script type="text/javascript">
+    $(document).ready(() => alert("Jquery works!"));
+
+
+</script>
+
+<%- include("./partials/footer") %>
