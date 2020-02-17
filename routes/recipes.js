@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+var Recipe = require("../models/recipe")
 
 // NOTE: all of these routes preceded by /recipes. So "/" here is really the "/recipes" route
 
@@ -18,9 +18,31 @@ router.get("/new", (req, res) => res.render("newRecipe"));
 // CREATE ROUTE
 
 router.post("/", (req, res) => {
+    var newRecipe = {
+        name: req.body.name,
+        author: "rob",
+        image: req.body.image,
+        oneLiner: req.body.oneLiner,
+        method: req.body.method,
+        ingredients: req.body.ingredients
+    }
 
-    console.log(req.body.oneLiner)
-    res.send({ redirect: "/recipes" });
+    Recipe.create(newRecipe, (err, saved) => {
+        if (err) console.log(err);
+        else {
+            console.log(saved);
+            res.send({ redirect: "/recipes" });
+        }
+
+
+    })
+
+
+
+
+
+
+
 })
 
 
