@@ -6,6 +6,11 @@ const port = 5000;
 // set templating engine to EJS
 app.set('view engine', 'ejs');
 
+// body parser
+const bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
+
 // import route files
 const recipeRoutes = require("./routes/recipes")
 app.use("/recipes", recipeRoutes);
@@ -16,7 +21,6 @@ app.use("/recipes", recipeRoutes);
 //--
 
 app.get("/", (req, res) => res.render("landing"));
-
 
 
 

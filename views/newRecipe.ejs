@@ -1,31 +1,87 @@
 <%- include("./partials/header") %>
+<div class="container">
+    <h1 class="text-center"> new recipe form </h1>
 
-<h1> new recipe form </h1>
+    <form id="newRecipeForm">
+        <div class="form-group">
+            <label for="name"> Recipe Name </label>
+            <input name="name" id="name" type="text" placeholder="recipe name" required class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="image"> Recipe Image </label>
+            <input name="image" id="image" type="text" placeholder="recipe image" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="oneLiner">One Liner </label>
+            <input name="oneLiner" id="oneLiner" type="text" placeholder="describe your recipe" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="method"> Method </label>
+            <textarea id="method" name="method" class="form-control">method here</textarea>
+        </div>
 
-<form action="/recipes" method="POST">
-    <label for="name"> Recipe Name </label>
-    <input name="name" id="name" type="text" placeholder="recipe name" required>
-    </br>
-    <label for="image"> Recipe Image </label>
-    <input name="image" id="image" type="text" placeholder="recipe image">
-    </br>
-    <label for="oneLiner">One Liner </label>
-    <input name="oneLiner" id="oneLiner" type="text" placeholder="describe your recipe">
-    </br>
-    <label for="method"> Method </label>
-    <textarea id="method" name="method">method here</textarea>
-    </br>
-    <p> add ingredients </p>
-    <input name="ingredient" id="ingredient" placeholder="add ingredient">
-    <input name="amount" id="amount" placeholder="#"><br>
-    <button type="submit">submit</button>
+        <div class="form-group">
+            <label for="ingredient">Ingredients:</label>
+            <input name="ingredient" id="ingredient" placeholder="add ingredient" class="form-control">
+            <ul id="ingredientListUL">
+        </div>
+        <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input name="quantity" id="quantity" placeholder="#" class="form-control">
+            <button id="addIngBtn" class="btn btn-primary" type="button">Add</button>
+        </div>
 
-</form>
-
-<script type="text/javascript">
-    $(document).ready(() => alert("Jquery works!"));
+        <button class="btn btn-primary" id="submitBtn" type="button">submit</button>
 
 
-</script>
+
+    </form>
+</div>
 
 <%- include("./partials/footer") %>
+
+<script type="text/javascript">
+    //$(document).ready(() => alert("Jquery works!"));
+    $(document).ready(() => {
+        $("#addIngBtn").click(() => {
+            let ingredient = $("#ingredient").val();
+            let quantity = $("#quantity").val();
+            $("#ingredient").val(""); //reset ingredient input
+            $("#quantity").val("");
+            $("ul").append(
+                "<li>" + ingredient + " - " + quantity + "</li>"
+            );
+        });
+
+        $("#submitBtn").click(() => {
+            $("#submitBtn").click(() => {
+                var ingredients = [];
+                $("#ingredientListUL li").each((index, element) =>
+                    ingredients.push($(element).text())
+                )
+
+                var name = $("#name").val();
+                var image = $("#image").val();
+                var oneLiner = $("#oneLiner").val();
+                var method = $("#method").val();
+                ingredients = ingredients;
+
+                $.ajax({
+                    url: "http://localhost:5000/recipes",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        name: name,
+                        image: image,
+                        oneLiner: oneLiner,
+                        method: method,
+                        ingredients: ingredients
+                    },
+                    success: () => window.location = "/recipes"
+
+                })
+            })
+        })
+
+    })
+</script>
