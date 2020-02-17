@@ -1,3 +1,7 @@
+//------
+// SETUP AND CONFIG
+//------
+
 // express setup
 const express = require("express");
 const app = express();
@@ -21,18 +25,24 @@ app.use("/recipes", recipeRoutes);
 
 // mongoose
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/recipe-app', { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('connected', () => console.log("Connected to database"));
+// mongoose models
+var Recipe = require("./models/recipe");
 
-//--
+//------
 // BASIC ROUTES
-//--
+//------
 
 app.get("/", (req, res) => res.render("landing"));
 
 
 
-// Port
+
+//------
+// PORT SETTINGS
+//------
+
 app.listen(port, () => console.log(`Server starting on port ${port}!`));
 
