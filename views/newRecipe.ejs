@@ -43,29 +43,42 @@
 <script type="text/javascript">
     //$(document).ready(() => alert("Jquery works!"));
     $(document).ready(() => {
+        // adds new ingredient and quantity to list and resets input
         $("#addIngBtn").click(() => {
             let ingredient = $("#ingredient").val();
             let quantity = $("#quantity").val();
             $("#ingredient").val(""); //reset ingredient input
             $("#quantity").val("");
             $("ul").append(
-                "<li>" + ingredient + " - " + quantity + "</li>"
+                "<li><span><i class='fas fa-trash'></i></span>" + ingredient + " - " + quantity + "</li>"
             );
         });
 
+        // remove ingredient/quantity from list if delete icon clicked
+        $("ul").on("click", "span", function (event) {
+            $(this)
+                .parent()
+                .fadeOut(500, function () {
+                    $(this).remove();
+                });
+            event.stopPropagation();
+        });
+
+        // submits form data to server via ajax and redirects to /recipes
         $("#submitBtn").click(() => {
             $("#submitBtn").click(() => {
+                // add all ingredients from list to array for transmission to server
                 var ingredients = [];
                 $("#ingredientListUL li").each((index, element) =>
                     ingredients.push($(element).text())
                 )
-
+                // data to be sent
                 var name = $("#name").val();
                 var image = $("#image").val();
                 var oneLiner = $("#oneLiner").val();
                 var method = $("#method").val();
                 ingredients = ingredients;
-
+                // ajax post request sending data to server
                 $.ajax({
                     url: "http://localhost:5000/recipes",
                     type: "POST",
@@ -78,10 +91,8 @@
                         ingredients: ingredients
                     },
                     success: () => window.location = "/recipes"
-
                 })
             })
         })
-
     })
 </script>
