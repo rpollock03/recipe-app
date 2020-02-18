@@ -1,0 +1,101 @@
+<%- include("./partials/header") %>
+<div class="container">
+    <h1 class="text-center"> Edit <%= recipe.name %> </h1>
+
+    <form id="newRecipeForm">
+        <div class="form-group">
+            <label for="name"> Recipe Name </label>
+            <input name="name" id="name" type="text" value="<%=recipe.name%>" required class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="image"> Recipe Image </label>
+            <input name="image" id="image" type="text" value="<%=recipe.image%>" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="oneLiner">One Liner </label>
+            <input name="oneLiner" id="oneLiner" type="text" value="<%=recipe.oneLiner%>" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="method"> Method </label>
+            <textarea id="method" name="method" class="form-control"><%=recipe.method%></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="ingredient">Ingredients:</label>
+            <input name="ingredient" id="ingredient" placeholder="add ingredient" class="form-control">
+            <ul id="ingredientListUL">
+                <% recipe.ingredients.forEach(function(ingredient){ %>
+                <li><span><i class='fas fa-trash'></i></span><%=ingredient%></li>
+                <%  })  %>
+        </div>
+        <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input name="quantity" id="quantity" placeholder="#" class="form-control">
+            <button id="addIngBtn" class="btn btn-primary" type="button">Add</button>
+        </div>
+
+        <button class="btn btn-primary" id="submitBtn" type="button">submit</button>
+
+
+
+    </form>
+</div>
+
+<%- include("./partials/footer") %>
+
+<script type="text/javascript">
+    //$(document).ready(() => alert("Jquery works!"));
+    $(document).ready(() => {
+        // adds new ingredient and quantity to list and resets input
+        $("#addIngBtn").click(() => {
+            let ingredient = $("#ingredient").val();
+            let quantity = $("#quantity").val();
+            $("#ingredient").val(""); //reset ingredient input
+            $("#quantity").val("");
+            $("ul").append(
+                "<li><span><i class='fas fa-trash'></i></span>" + ingredient + " - " + quantity + "</li>"
+            );
+        });
+
+        // remove ingredient/quantity from list if delete icon clicked
+        $("ul").on("click", "span", function (event) {
+            $(this)
+                .parent()
+                .fadeOut(500, function () {
+                    $(this).remove();
+                });
+            event.stopPropagation();
+        });
+
+        // submits form data to server via ajax and redirects to /recipes
+        $("#submitBtn").click(() => {
+            $("#submitBtn").click(() => {
+                // add all ingredients from list to array for transmission to server
+                var ingredients = [];
+                $("#ingredientListUL li").each((index, element) =>
+                    ingredients.push($(element).text())
+                )
+                // data to be sent
+                var name = $("#name").val();
+                var image = $("#image").val();
+                var oneLiner = $("#oneLiner").val();
+                var method = $("#method").val();
+                ingredients = ingredients;
+                // ajax post request sending data to server
+                $.ajax({
+                    url: "http://localhost:5000/recipes/<%=recipe._id%>/edit",
+                    type: "PUT",
+                    dataType: "json",
+                    data: {
+                        name: name,
+                        image: image,
+                        oneLiner: oneLiner,
+                        method: method,
+                        ingredients: ingredients
+                    },
+                    success: () => window.location = "/recipes"
+                })
+            })
+        })
+    })
+</script>

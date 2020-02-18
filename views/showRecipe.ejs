@@ -21,7 +21,7 @@
             <h3> Method:</h3>
             <p><%= recipe.method %></p>
             <br>
-            <form action="/recipes/<%=recipe._id%>/?_method=delete" method="post">
+            <form action="/recipes/<%=recipe._id%>?_method=DELETE" method="post">
                 <button class="btn btn-danger">Delete</button>
             </form>
             <a href="/recipes/<%=recipe._id%>/edit"><button class="btn btn-warning">Edit</button></a>

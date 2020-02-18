@@ -19,26 +19,31 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
+// method override
+var methodOverride = require("method-override");
+app.use(methodOverride("_method"));
+
 // import route files
 const recipeRoutes = require("./routes/recipes")
 app.use("/recipes", recipeRoutes);
 
 // mongoose
 var mongoose = require('mongoose');
-mongoose.connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false });
+//mongoose.set('useFindAndModify', false);
 var db = mongoose.connection;
 db.on('connected', () => console.log("Connected to database"));
 // mongoose models
 var Recipe = require("./models/recipe");
+
+
+
 
 //------
 // BASIC ROUTES
 //------
 
 app.get("/", (req, res) => res.render("landing"));
-
-
-
 
 //------
 // PORT SETTINGS

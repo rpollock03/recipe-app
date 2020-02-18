@@ -36,7 +36,7 @@ router.post("/", (req, res) => {
         if (err) console.log(err);
         else {
             console.log(saved);
-            res.send({ redirect: "/recipes" });
+            res.send({ redirect: "/recipes" }); // this necessary???!!!
         }
     })
 })
@@ -54,16 +54,50 @@ router.get("/:id", (req, res) => {
 })
 
 
-
-
-
-
 // EDIT ROUTE
+router.get("/:id/edit", (req, res) => {
+    Recipe.findById(req.params.id, (err, foundRecipe) => {
+        if (err) {
+            console.log("error finding recipe" + err)
+        } else {
+            res.render("editRecipe", { recipe: foundRecipe })
+        }
+    })
+})
 
 // UPDATE ROUTE
+router.put("/:id/edit", (req, res) => {
+    var updatedRecipe = {
+        name: req.body.name,
+        author: "rob",
+        image: req.body.image,
+        oneLiner: req.body.oneLiner,
+        method: req.body.method,
+        ingredients: req.body.ingredients
+    }
+    //new:true returns the updated value in the console.log, otherwise returns previous value. not necessary. 
+    Recipe.findByIdAndUpdate(req.params.id, updatedRecipe, { new: true }, (err, saved) => {
+        if (err) {
+            console.log("error updating recipe" + err);
+        } else {
+            console.log(saved);
+            res.send({ redirect: "/recipes" }); // this necessary???!!!
+        }
+
+    })
+
+})
 
 // DESTROY ROUTE
-
+router.delete("/:id", (req, res) => {
+    Recipe.findByIdAndRemove(req.params.id, (err) => {
+        if (err) {
+            res.redirect("/recipes");
+        } else {
+            res.redirect("/recipes");
+        }
+    })
+})
 
 
 
