@@ -1,8 +1,23 @@
 <%- include("./partials/header") %>
 
-<h1> recipes will go here </h1>
-
-<a href="/recipes/new"><button>Add recipe</button></a>
+<h1 class="text-center"> My recipes </h1>
+<a href="/recipes/new"><button class="btn btn-success center-block">Add New Recipe</button></a>
+<br>
+<div class="container">
+    <div class="row">
+        <% recipes.forEach(function(recipe){ %>
+        <div class="card col-6 col-md-3">
+            <img class="card-img-top imagesRecipesPage" src="<%=recipe.image%>" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title"><%= recipe.name %></h5>
+                <p class="card-text"><%= recipe.oneLiner %>></p>
+                <footer class="blockquote-footer">by <%= recipe.author %></footer>
+                <a href="/recipes/<%=recipe._id%>" class="btn btn-primary">Let's make this!</a>
+            </div>
+        </div>
+        <% });%>
+    </div>
+</div>
 
 
 <%- include("./partials/footer") %>

@@ -1,0 +1,41 @@
+<%- include("./partials/header") %>
+
+<div class="container">
+    <div>
+        <p><%=recipe%></p>
+        <h2> let's make <%=recipe.name %> !!</h2>
+        <h4><em> by <%=recipe.author %> </em></h4>
+    </div>
+    <div class="row">
+        <div class="card col-md-6">
+            <img src="<%=recipe.image%>" class="card-img-top img-responsive imagesShowPage">
+            <div class="card-body">
+                <p class="card-text"><em>"<%=recipe.oneLiner%>"</em></p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h3> Ingredients:</h3>
+            <% recipe.ingredients.forEach(function(ingredient){ %>
+            <li><%= ingredient %> </li>
+            <% })  %>
+            <br>
+            <h3> Method:</h3>
+            <p><%= recipe.method %></p>
+            <br>
+            <form action="/recipes/<%=recipe._id%>/?_method=delete" method="post">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+            <a href="/recipes/<%=recipe._id%>/edit"><button class="btn btn-warning">Edit</button></a>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+<%- include("./partials/footer") %>

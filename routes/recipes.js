@@ -6,7 +6,15 @@ var Recipe = require("../models/recipe")
 
 
 // INDEX ROUTE
-router.get("/", (req, res) => res.render("recipes"))
+router.get("/", (req, res) => {
+    Recipe.find({ author: "rob" }, (err, foundRecipes) => {
+        if (err) {
+            console.log("error finding recipes by author" + err);
+        } else {
+            res.render("recipes", { recipes: foundRecipes })
+        }
+    })
+})
 
 
 // SHOW ROUTE
