@@ -16,9 +16,6 @@ router.get("/", (req, res) => {
     })
 })
 
-
-// SHOW ROUTE
-
 // NEW ROUTE
 
 router.get("/new", (req, res) => res.render("newRecipe"));
@@ -41,17 +38,22 @@ router.post("/", (req, res) => {
             console.log(saved);
             res.send({ redirect: "/recipes" });
         }
-
-
     })
-
-
-
-
-
-
-
 })
+
+
+// SHOW ROUTE - must be below /new
+router.get("/:id", (req, res) => {
+    Recipe.findById(req.params.id, (err, foundRecipe) => {
+        if (err) {
+            console.log("error finding recipe" + err);
+        } else {
+            res.render("showRecipe", { recipe: foundRecipe });
+        }
+    })
+})
+
+
 
 
 
