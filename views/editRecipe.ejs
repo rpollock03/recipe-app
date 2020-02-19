@@ -1,7 +1,7 @@
 <%- include("./partials/header") %>
+
 <div class="container">
     <h1 class="text-center"> Edit <%= recipe.name %> </h1>
-
     <form id="newRecipeForm">
         <div class="form-group">
             <label for="name"> Recipe Name </label>
@@ -35,7 +35,8 @@
         </div>
 
         <button class="btn btn-primary" id="submitBtn" type="button">submit</button>
-
+        <a href="/recipes/<%=recipe._id%>"> <button class="btn btn-secondary" id="goBack"
+                type="button">cancel</button></a>
 
 
     </form>
