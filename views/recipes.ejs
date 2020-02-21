@@ -1,5 +1,8 @@
 <%- include("./partials/header") %>
 
+<% if(currentUser){ %>
+<h4>Welcome, <%=currentUser.username%></h4>
+<% } %>
 <h1 class="text-center"> My recipes </h1>
 <a href="/recipes/new"><button class="btn btn-success center-block">Add New Recipe</button></a>
 <br>

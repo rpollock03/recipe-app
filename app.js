@@ -34,6 +34,12 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
+// middleware that makes req.user data available to EVERY page, otherwise we would have to manually pass in every one like  res.render("recipes", { recipes: foundRecipes, currentUser: req.user }) etc. Whatever is stored in res.locals is availabe to all pages. 
+app.use(function (req, res, next) {
+    res.locals.currentUser = req.user;
+    next();
+});
+
 // method override
 app.use(methodOverride("_method"));
 
@@ -58,10 +64,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(new LocalStrategy(User.authenticate()));
-// the .authenticate method is what comes with mongoose-passport-local. without it we would have to write this. 
-// without passport-local-mongoose would have to write the code to compare passwords, but here 2 lines all that's required
 
-// in order for persistent sessions to work, we need to serailise authenticated user to the session, and deserialise when subsequent requests are made. We do this with passport local mongoose
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 

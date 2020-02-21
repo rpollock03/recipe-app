@@ -18,11 +18,11 @@ router.get("/", (req, res) => {
 
 // NEW ROUTE
 
-router.get("/new", (req, res) => res.render("newRecipe"));
+router.get("/new", isLoggedIn, (req, res) => res.render("newRecipe"));
 
 // CREATE ROUTE
 
-router.post("/", (req, res) => {
+router.post("/", isLoggedIn, (req, res) => {
     var newRecipe = {
         name: req.body.name,
         author: "rob",
@@ -55,7 +55,7 @@ router.get("/:id", (req, res) => {
 
 
 // EDIT ROUTE
-router.get("/:id/edit", (req, res) => {
+router.get("/:id/edit", isLoggedIn, (req, res) => {
     Recipe.findById(req.params.id, (err, foundRecipe) => {
         if (err) {
             console.log("error finding recipe" + err)
@@ -66,7 +66,7 @@ router.get("/:id/edit", (req, res) => {
 })
 
 // UPDATE ROUTE
-router.put("/:id/edit", (req, res) => {
+router.put("/:id/edit", isLoggedIn, (req, res) => {
     var updatedRecipe = {
         name: req.body.name,
         author: "rob",
@@ -89,7 +89,7 @@ router.put("/:id/edit", (req, res) => {
 })
 
 // DESTROY ROUTE
-router.delete("/:id", (req, res) => {
+router.delete("/:id", isLoggedIn, (req, res) => {
     Recipe.findByIdAndRemove(req.params.id, (err) => {
         if (err) {
             res.redirect("/recipes");
@@ -99,7 +99,13 @@ router.delete("/:id", (req, res) => {
     })
 })
 
-
+// defined isLoggedIn middleware
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/login");
+}
 
 
 
