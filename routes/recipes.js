@@ -11,14 +11,13 @@ router.get("/", (req, res) => {
         if (err) {
             console.log("error finding recipes by author" + err);
         } else {
-            res.render("recipes", { recipes: foundRecipes })
+            res.render("recipes/recipes", { recipes: foundRecipes })
         }
     })
 })
 
 // NEW ROUTE
-
-router.get("/new", isLoggedIn, (req, res) => res.render("newRecipe"));
+router.get("/new", isLoggedIn, (req, res) => res.render("recipes/newRecipe"));
 
 // CREATE ROUTE
 
@@ -44,11 +43,12 @@ router.post("/", isLoggedIn, (req, res) => {
 
 // SHOW ROUTE - must be below /new
 router.get("/:id", (req, res) => {
-    Recipe.findById(req.params.id, (err, foundRecipe) => {
+    // so without the populate/exec, it would return the recipe object, BUT as defined by recipe schema, the comments would just be an array of comment ids. We want the ACTUAL comments. so .populate makes that happen, while .exec runs the actual query.     
+    Recipe.findById(req.params.id).populate("comments").exec((err, foundRecipe) => {
         if (err) {
             console.log("error finding recipe" + err);
         } else {
-            res.render("showRecipe", { recipe: foundRecipe });
+            res.render("recipes/showRecipe", { recipe: foundRecipe });
         }
     })
 })
@@ -60,7 +60,7 @@ router.get("/:id/edit", isLoggedIn, (req, res) => {
         if (err) {
             console.log("error finding recipe" + err)
         } else {
-            res.render("editRecipe", { recipe: foundRecipe })
+            res.render("recipes/editRecipe", { recipe: foundRecipe })
         }
     })
 })

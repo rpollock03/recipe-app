@@ -15,7 +15,8 @@ const Recipe = require("./models/recipe"),
 
 // routes
 const recipeRoutes = require("./routes/recipes"),
-    userRoutes = require("./routes/users");
+    userRoutes = require("./routes/users"),
+    commentRoutes = require("./routes/comments");
 
 //------
 // SETUP/CONFIG
@@ -72,6 +73,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use("/recipes", recipeRoutes);
 app.use("/", userRoutes);
+app.use("/recipes", commentRoutes);
 
 
 //------

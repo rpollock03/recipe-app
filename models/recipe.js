@@ -7,7 +7,13 @@ var recipeSchema = new Schema({
     image: String,
     oneLiner: String,
     method: String,
-    ingredients: [String]
+    ingredients: [String],
+    comments: [
+        {   // .comments property should be an array of comment ids
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Comment"
+        }
+    ]
 
 });
 

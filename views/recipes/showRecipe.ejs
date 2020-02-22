@@ -1,4 +1,4 @@
-<%- include("./partials/header") %>
+<%- include("../partials/header") %>
 
 <div class="container">
     <div>
@@ -27,6 +27,11 @@
             <a href="/recipes/<%=recipe._id%>/edit"><button class="btn btn-warning">Edit</button></a>
         </div>
     </div>
+    <% recipe.comments.forEach(function(comment){ %>
+
+    <p><strong><%= comment.author %></strong>- <%- comment.text %> </p>
+
+    <% }) %>
 </div>
 </div>
 
@@ -37,4 +42,4 @@
 
 
 
-<%- include("./partials/footer") %>
+<%- include("../partials/footer") %>
