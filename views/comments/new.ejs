@@ -1,9 +1,12 @@
 <%- include("../partials/header") %>
+
 <h1> add new comment to <%= recipe.name %></h1>
 <form action="/recipes/<%=recipe._id%>/comments" method="post">
-    <input type="text" name="comment[author]" placeholder="author">
-    <input type="text" name="comment[text]" placeholder="comment">
-    <button type="submit">submit comment </button>
+    <input type="text" name="author" placeholder="author">
+    <input type="text" name="text" placeholder="comment">
+
+    <button type="submit">submit
+        comment </button>
 </form>
 
 

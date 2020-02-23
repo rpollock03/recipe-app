@@ -1,0 +1,14 @@
+<%- include("../partials/header") %>
+<h1> edit comment</h1>
+<!--see note in routes file about what recipeId variable is-->
+<!--distinction is between ._id which are ejs references to actual ids in the object, and _id or recipeId etc which are just placeholders or variables assigned to prevent confusion in parameters. eg :id for comment AND recipe would conflict-->
+<form action="/recipes/<%=recipeId%>/comments/<%=comment._id%>?_method=PUT" method="post">
+    <input type="text" name="author" value="<%=comment.author%>">
+    <input type="text" name="text" value="<%=comment.text%>">
+
+    <button type="submit">submit
+        comment </button>
+</form>
+
+
+<%- include("../partials/footer") %>

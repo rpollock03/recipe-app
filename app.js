@@ -25,6 +25,7 @@ const recipeRoutes = require("./routes/recipes"),
 // basic express
 const app = express();
 const port = 5000;
+// dirname is directory script run from
 app.use(express.static(__dirname + "/public"));
 require('dotenv').config() // for .env files
 
@@ -35,11 +36,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
-// middleware that makes req.user data available to EVERY page, otherwise we would have to manually pass in every one like  res.render("recipes", { recipes: foundRecipes, currentUser: req.user }) etc. Whatever is stored in res.locals is availabe to all pages. 
-app.use(function (req, res, next) {
-    res.locals.currentUser = req.user;
-    next();
-});
+
 
 // method override
 app.use(methodOverride("_method"));
@@ -69,11 +66,17 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// middleware that makes req.user data available to EVERY page, otherwise we would have to manually pass in every one like  res.render("recipes", { recipes: foundRecipes, currentUser: req.user }) etc. Whatever is stored in res.locals is availabe to all pages. 
+app.use(function (req, res, next) {
+    res.locals.currentUser = req.user;
+    next();
+});
+
 // import route files
 
 app.use("/recipes", recipeRoutes);
 app.use("/", userRoutes);
-app.use("/recipes", commentRoutes);
+app.use("/recipes/:id/comments", commentRoutes);
 
 
 //------

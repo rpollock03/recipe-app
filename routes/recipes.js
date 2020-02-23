@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-var Recipe = require("../models/recipe")
+var Recipe = require("../models/recipe")// do i need this since models included above routes in appjs?
 
 // NOTE: all of these routes preceded by /recipes. So "/" here is really the "/recipes" route
 
