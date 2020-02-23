@@ -37,7 +37,6 @@ router.post("/", isLoggedIn, (req, res) => {
     Recipe.create(newRecipe, (err, saved) => {
         if (err) console.log(err);
         else {
-            console.log(saved);
             res.send({ redirect: "/recipes" }); // this necessary???!!!
         }
     })
@@ -58,7 +57,7 @@ router.get("/:id", (req, res) => {
 
 
 // EDIT ROUTE
-router.get("/:id/edit", isLoggedIn, (req, res) => {
+router.get("/:id/edit", checkRecipeOwnership, (req, res) => {
     Recipe.findById(req.params.id, (err, foundRecipe) => {
         if (err) {
             console.log("error finding recipe" + err)
@@ -69,7 +68,7 @@ router.get("/:id/edit", isLoggedIn, (req, res) => {
 })
 
 // UPDATE ROUTE
-router.put("/:id/edit", isLoggedIn, (req, res) => {
+router.put("/:id/edit", checkRecipeOwnership, (req, res) => {
     var updatedRecipe = {
         name: req.body.name,
         // dont need author because author data will be unchanged because only author will have access to edit button
@@ -83,7 +82,6 @@ router.put("/:id/edit", isLoggedIn, (req, res) => {
         if (err) {
             console.log("error updating recipe" + err);
         } else {
-            console.log(saved);
             res.send({ redirect: "/recipes" }); // this necessary???!!!
         }
 
@@ -92,7 +90,7 @@ router.put("/:id/edit", isLoggedIn, (req, res) => {
 })
 
 // DESTROY ROUTE
-router.delete("/:id", isLoggedIn, (req, res) => {
+router.delete("/:id", checkRecipeOwnership, (req, res) => {
     Recipe.findByIdAndRemove(req.params.id, (err) => {
         if (err) {
             res.redirect("/recipes");
@@ -110,7 +108,23 @@ function isLoggedIn(req, res, next) {
     res.redirect("/login");
 }
 
-
+function checkRecipeOwnership(req, res, next) {
+    if (req.isAuthenticated()) {
+        Recipe.findById(req.params.id, function (err, foundRecipe) {
+            if (err) {
+                res.redirect("/recipes");
+            } else {
+                if (foundRecipe.author.id.equals(req.user._id)) {
+                    next();
+                } else {
+                    res.redirect("back")
+                }
+            }
+        });
+    } else {
+        res.redirect("back");
+    }
+}
 
 
 module.exports = router;

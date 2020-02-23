@@ -22,10 +22,13 @@
             <h3> Method:</h3>
             <p><%= recipe.method %></p>
             <br>
+            <!--&& because if no user logged in would be error otherwise-->
+            <%if(currentUser && recipe.author.id.equals(currentUser._id)){    %>
             <form class="inline-form-button" action="/recipes/<%=recipe._id%>?_method=DELETE" method="post">
                 <button class="btn btn-danger">Delete</button>
             </form>
             <a class="btn btn-warning inline-form-button" href="/recipes/<%=recipe._id%>/edit">Edit</a>
+            <%  }  %>
             <br>
 
         </div>
