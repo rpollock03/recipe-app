@@ -14,7 +14,7 @@
             <div class="card-body">
                 <h5 class="card-title"><%= recipe.name %></h5>
                 <p class="card-text"><%= recipe.oneLiner %>></p>
-                <footer class="blockquote-footer">by <%= recipe.author %></footer>
+                <footer class="blockquote-footer">by <%= recipe.author.username %></footer>
                 <a href="/recipes/<%=recipe._id%>" class="btn btn-primary">Let's make this!</a>
             </div>
         </div>

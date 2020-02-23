@@ -25,15 +25,13 @@ router.post("/", isLoggedIn, (req, res) => {
             console.log(err);
             res.redirect("/recipes");
         } else {
-            var newComment = {
-                text: req.body.text,
-                author: req.body.author
-            }
-
-            Comment.create(newComment, (err, comment) => {
+            Comment.create(req.body.comment, (err, comment) => {
                 if (err) {
                     console.log(err);
                 } else {
+                    // as per schema, author has an id and username
+                    comment.author.id = req.user._id;
+                    comment.author.username = req.user.username;
                     foundRecipe.comments.push(comment);
                     foundRecipe.save();
                     res.redirect("/recipes/" + foundRecipe._id)
@@ -44,8 +42,8 @@ router.post("/", isLoggedIn, (req, res) => {
 })
 
 // edit route. comment_id can be anything, we just couldnt do id again because it would override the previous recipe id
-router.get("/:comment_id/edit", (req, res) => {
-    Comment.findById(req.params.comment_id, (err, foundComment) => {
+router.get("/:commentId/edit", (req, res) => {
+    Comment.findById(req.params.commentId, (err, foundComment) => {
         if (err) {
             res.redirect("back");
         } else {
@@ -69,9 +67,19 @@ router.put("/:commentId", (req, res) => {
             res.redirect("/recipes/" + req.params.id)
         }
     })
-
 })
 
+// DESTROY ROUTE
+router.delete("/:commentId", (req, res) => {
+    Comment.findByIdAndRemove(req.params.commentId, (err, result) => {
+        if (err) {
+            console.log("error deleting comment" + err);
+            res.redirect("/recipes/" + req.params.id)
+        } else {
+            res.redirect("/recipes/" + req.params.id)
+        }
+    })
+})
 
 
 
@@ -80,6 +88,28 @@ function isLoggedIn(req, res, next) {
         return next();
     }
     res.redirect("/login");
+}
+
+function checkCommentOwnership(req, res, next) {
+    if (req.isAuthenticated()) {
+        //if logged in
+        Comment.findById(req.params.id, (err, foundComment) => {
+            if (err) {
+                console.log("couldn't find comment" + err);
+                res.redirect("back");
+            } else {
+                if (foundComment.author.id.equals(req.user._id)) {
+                    next();
+                } else {
+                    res.redirect("back");
+                }
+            }
+        })
+    } else {
+        // if not logged in
+        res.redirect("back");
+    }
+
 }
 
 

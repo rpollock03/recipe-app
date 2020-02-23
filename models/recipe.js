@@ -3,7 +3,14 @@ var Schema = mongoose.Schema;
 
 var recipeSchema = new Schema({
     name: String,
-    author: String,
+    // this is a subdocument which is why we use mongoose id thing...
+    author: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
+        username: String
+    },
     image: String,
     oneLiner: String,
     method: String,

@@ -3,7 +3,7 @@
 <div class="container">
     <div>
         <h2> let's make <%=recipe.name %> !!</h2>
-        <h4><em> by <%=recipe.author %> </em></h4>
+        <h4><em> by <%=recipe.author.username %> </em></h4>
     </div>
     <div class="row">
         <div class="card col-md-6">
@@ -22,10 +22,10 @@
             <h3> Method:</h3>
             <p><%= recipe.method %></p>
             <br>
-            <form action="/recipes/<%=recipe._id%>?_method=DELETE" method="post">
+            <form class="inline-form-button" action="/recipes/<%=recipe._id%>?_method=DELETE" method="post">
                 <button class="btn btn-danger">Delete</button>
             </form>
-            <a href="/recipes/<%=recipe._id%>/edit"><button class="btn btn-warning">Edit</button></a>
+            <a class="btn btn-warning inline-form-button" href="/recipes/<%=recipe._id%>/edit">Edit</a>
             <br>
 
         </div>
@@ -39,11 +39,15 @@
         <% recipe.comments.forEach(function(comment){ %>
         <div class="row">
             <div class="col-md-12">
-                <strong>@<%= comment.author %></strong>
+                <strong>@<%= comment.author.username %></strong>
                 <span class="pull-right">10 days ago</span>
                 <p><%- comment.text %> </p>
-                <a class="btn btn-xs btn-warning"
+                <a class="btn btn-xs btn-warning inline-form-button"
                     href="/recipes/<%=recipe._id%>/comments/<%=comment._id%>/edit">edit</a>
+                <form class="inline-form-button"
+                    action="/recipes/<%=recipe._id%>/comments/<%=comment._id%>?_method=DELETE" method="post">
+                    <button class="btn btn-xs btn-danger">Delete</button>
+                </form>
             </div>
         </div>
 

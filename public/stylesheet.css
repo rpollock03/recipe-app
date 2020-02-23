@@ -5,3 +5,7 @@
 .card{
     padding:0;
 }
+
+.inline-form-button{
+    display:inline;
+}

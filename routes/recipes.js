@@ -7,7 +7,7 @@ var Recipe = require("../models/recipe")// do i need this since models included 
 
 // INDEX ROUTE
 router.get("/", (req, res) => {
-    Recipe.find({ author: "rob" }, (err, foundRecipes) => {
+    Recipe.find({}, (err, foundRecipes) => {
         if (err) {
             console.log("error finding recipes by author" + err);
         } else {
@@ -24,12 +24,15 @@ router.get("/new", isLoggedIn, (req, res) => res.render("recipes/newRecipe"));
 router.post("/", isLoggedIn, (req, res) => {
     var newRecipe = {
         name: req.body.name,
-        author: "rob",
+        author: {
+            id: req.user._id,
+            username: req.user.username
+        },
         image: req.body.image,
         oneLiner: req.body.oneLiner,
         method: req.body.method,
         ingredients: req.body.ingredients
-    }
+    };
 
     Recipe.create(newRecipe, (err, saved) => {
         if (err) console.log(err);
@@ -69,7 +72,7 @@ router.get("/:id/edit", isLoggedIn, (req, res) => {
 router.put("/:id/edit", isLoggedIn, (req, res) => {
     var updatedRecipe = {
         name: req.body.name,
-        author: "rob",
+        // dont need author because author data will be unchanged because only author will have access to edit button
         image: req.body.image,
         oneLiner: req.body.oneLiner,
         method: req.body.method,
