@@ -32,8 +32,12 @@ router.post("/", isLoggedIn, (req, res) => {
                     // as per schema, author has an id and username
                     comment.author.id = req.user._id;
                     comment.author.username = req.user.username;
+                    comment.save();
                     foundRecipe.comments.push(comment);
                     foundRecipe.save();
+                    console.log(foundRecipe);
+                    console.log(comment.author);
+                    console.log(comment);
                     res.redirect("/recipes/" + foundRecipe._id)
                 }
             })
@@ -42,7 +46,7 @@ router.post("/", isLoggedIn, (req, res) => {
 })
 
 // edit route. comment_id can be anything, we just couldnt do id again because it would override the previous recipe id
-router.get("/:commentId/edit", (req, res) => {
+router.get("/:commentId/edit", checkCommentOwnership, (req, res) => {
     Comment.findById(req.params.commentId, (err, foundComment) => {
         if (err) {
             res.redirect("back");
@@ -54,13 +58,9 @@ router.get("/:commentId/edit", (req, res) => {
 })
 
 // COMMENT UPDATE ROUTE
-router.put("/:commentId", (req, res) => {
+router.put("/:commentId", checkCommentOwnership, (req, res) => {
     // 3 parameters: id, data to update, and callback
-    var updatedComment = {
-        text: req.body.text,
-        author: req.body.author
-    }
-    Comment.findByIdAndUpdate(req.params.commentId, updatedComment, (err, result) => {
+    Comment.findByIdAndUpdate(req.params.commentId, req.body.comment, (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -70,7 +70,7 @@ router.put("/:commentId", (req, res) => {
 })
 
 // DESTROY ROUTE
-router.delete("/:commentId", (req, res) => {
+router.delete("/:commentId", checkCommentOwnership, (req, res) => {
     Comment.findByIdAndRemove(req.params.commentId, (err, result) => {
         if (err) {
             console.log("error deleting comment" + err);
@@ -93,11 +93,12 @@ function isLoggedIn(req, res, next) {
 function checkCommentOwnership(req, res, next) {
     if (req.isAuthenticated()) {
         //if logged in
-        Comment.findById(req.params.id, (err, foundComment) => {
+        Comment.findById(req.params.commentId, (err, foundComment) => {
             if (err) {
                 console.log("couldn't find comment" + err);
                 res.redirect("back");
             } else {
+
                 if (foundComment.author.id.equals(req.user._id)) {
                     next();
                 } else {
