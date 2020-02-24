@@ -2,12 +2,14 @@ const express = require("express");
 const router = express.Router({ mergeParams: true }); // mergeParams Preserve the req.params values from the parent router eg recipe ID 
 var Recipe = require("../models/recipe")
 var Comment = require("../models/comment");
+var middleware = require("../middleware") //because file is named index.js it knows to be required without having to specify
+
 
 //nesting the comments route in the show routes.
 // all routes here really begin with /recipes/:id/comments
 
 // new ie recipes/:id/comments/new 
-router.get("/new", isLoggedIn, (req, res) => {
+router.get("/new", middleware.isLoggedIn, (req, res) => {
 
     Recipe.findById(req.params.id, (err, foundRecipe) => {
         if (err) {
@@ -19,7 +21,7 @@ router.get("/new", isLoggedIn, (req, res) => {
 });
 
 // create route, ie handle new comment logic
-router.post("/", isLoggedIn, (req, res) => {
+router.post("/", middleware.isLoggedIn, (req, res) => {
     Recipe.findById(req.params.id, (err, foundRecipe) => {
         if (err) {
             console.log(err);
@@ -44,7 +46,7 @@ router.post("/", isLoggedIn, (req, res) => {
 })
 
 // edit route. comment_id can be anything, we just couldnt do id again because it would override the previous recipe id
-router.get("/:commentId/edit", checkCommentOwnership, (req, res) => {
+router.get("/:commentId/edit", middleware.checkCommentOwnership, (req, res) => {
     Comment.findById(req.params.commentId, (err, foundComment) => {
         if (err) {
             res.redirect("back");
@@ -56,7 +58,7 @@ router.get("/:commentId/edit", checkCommentOwnership, (req, res) => {
 })
 
 // COMMENT UPDATE ROUTE
-router.put("/:commentId", checkCommentOwnership, (req, res) => {
+router.put("/:commentId", middleware.checkCommentOwnership, (req, res) => {
     // 3 parameters: id, data to update, and callback
     Comment.findByIdAndUpdate(req.params.commentId, req.body.comment, (err, result) => {
         if (err) {
@@ -68,7 +70,7 @@ router.put("/:commentId", checkCommentOwnership, (req, res) => {
 })
 
 // DESTROY ROUTE
-router.delete("/:commentId", checkCommentOwnership, (req, res) => {
+router.delete("/:commentId", middleware.checkCommentOwnership, (req, res) => {
     Comment.findByIdAndRemove(req.params.commentId, (err, result) => {
         if (err) {
             console.log("error deleting comment" + err);
@@ -78,39 +80,5 @@ router.delete("/:commentId", checkCommentOwnership, (req, res) => {
         }
     })
 })
-
-
-
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect("/login");
-}
-
-function checkCommentOwnership(req, res, next) {
-    if (req.isAuthenticated()) {
-        //if logged in
-        Comment.findById(req.params.commentId, (err, foundComment) => {
-            if (err) {
-                console.log("couldn't find comment" + err);
-                res.redirect("back");
-            } else {
-
-                if (foundComment.author.id.equals(req.user._id)) {
-                    next();
-                } else {
-                    res.redirect("back");
-                }
-            }
-        })
-    } else {
-        // if not logged in
-        res.redirect("back");
-    }
-
-}
-
-
 
 module.exports = router;

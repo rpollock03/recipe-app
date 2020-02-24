@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-var Recipe = require("../models/recipe")// do i need this since models included above routes in appjs?
+var Recipe = require("../models/recipe")
+var middleware = require("../middleware") //because file is named index.js it knows to be required without having to specify
 
 // NOTE: all of these routes preceded by /recipes. So "/" here is really the "/recipes" route
-
 
 // INDEX ROUTE
 router.get("/", (req, res) => {
@@ -17,11 +17,10 @@ router.get("/", (req, res) => {
 })
 
 // NEW ROUTE
-router.get("/new", isLoggedIn, (req, res) => res.render("recipes/newRecipe"));
+router.get("/new", middleware.isLoggedIn, (req, res) => res.render("recipes/newRecipe"));
 
 // CREATE ROUTE
-
-router.post("/", isLoggedIn, (req, res) => {
+router.post("/", middleware.isLoggedIn, (req, res) => {
     var newRecipe = {
         name: req.body.name,
         author: {
@@ -57,7 +56,7 @@ router.get("/:id", (req, res) => {
 
 
 // EDIT ROUTE
-router.get("/:id/edit", checkRecipeOwnership, (req, res) => {
+router.get("/:id/edit", middleware.checkRecipeOwnership, (req, res) => {
     Recipe.findById(req.params.id, (err, foundRecipe) => {
         if (err) {
             console.log("error finding recipe" + err)
@@ -68,7 +67,7 @@ router.get("/:id/edit", checkRecipeOwnership, (req, res) => {
 })
 
 // UPDATE ROUTE
-router.put("/:id/edit", checkRecipeOwnership, (req, res) => {
+router.put("/:id/edit", middleware.checkRecipeOwnership, (req, res) => {
     var updatedRecipe = {
         name: req.body.name,
         // dont need author because author data will be unchanged because only author will have access to edit button
@@ -90,7 +89,7 @@ router.put("/:id/edit", checkRecipeOwnership, (req, res) => {
 })
 
 // DESTROY ROUTE
-router.delete("/:id", checkRecipeOwnership, (req, res) => {
+router.delete("/:id", middleware.checkRecipeOwnership, (req, res) => {
     Recipe.findByIdAndRemove(req.params.id, (err) => {
         if (err) {
             res.redirect("/recipes");
@@ -99,32 +98,6 @@ router.delete("/:id", checkRecipeOwnership, (req, res) => {
         }
     })
 })
-
-// defined isLoggedIn middleware
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect("/login");
-}
-
-function checkRecipeOwnership(req, res, next) {
-    if (req.isAuthenticated()) {
-        Recipe.findById(req.params.id, function (err, foundRecipe) {
-            if (err) {
-                res.redirect("/recipes");
-            } else {
-                if (foundRecipe.author.id.equals(req.user._id)) {
-                    next();
-                } else {
-                    res.redirect("back")
-                }
-            }
-        });
-    } else {
-        res.redirect("back");
-    }
-}
 
 
 module.exports = router;
