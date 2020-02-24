@@ -1,5 +1,6 @@
 const express = require("express");
-const router = express.Router({ mergeParams: true }); // mergeParams Preserve the req.params values from the parent router eg recipe ID 
+const router = express.Router({ mergeParams: true });
+// mergeParams Preserve the req.params values from the parent router eg recipe ID 
 var Recipe = require("../models/recipe")
 var Comment = require("../models/comment");
 var middleware = require("../middleware") //because file is named index.js it knows to be required without having to specify
@@ -10,7 +11,6 @@ var middleware = require("../middleware") //because file is named index.js it kn
 
 // new ie recipes/:id/comments/new 
 router.get("/new", middleware.isLoggedIn, (req, res) => {
-
     Recipe.findById(req.params.id, (err, foundRecipe) => {
         if (err) {
             console.log(err);
@@ -25,10 +25,12 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
     Recipe.findById(req.params.id, (err, foundRecipe) => {
         if (err) {
             console.log(err);
+            req.flash("error", "Cannot find recipe");
             res.redirect("/recipes");
         } else {
             Comment.create(req.body.comment, (err, comment) => {
                 if (err) {
+                    req.flash("error", "Something went wrong");
                     console.log(err);
                 } else {
                     // as per schema, author has an id and username
@@ -37,7 +39,7 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
                     comment.save();
                     foundRecipe.comments.push(comment);
                     foundRecipe.save();
-
+                    req.flash("success", "Successfully added comment");
                     res.redirect("/recipes/" + foundRecipe._id)
                 }
             })
@@ -63,6 +65,7 @@ router.put("/:commentId", middleware.checkCommentOwnership, (req, res) => {
     Comment.findByIdAndUpdate(req.params.commentId, req.body.comment, (err, result) => {
         if (err) {
             console.log(err);
+            req.flash("error", "Sorry, there was a problem editing that comment");
         } else {
             res.redirect("/recipes/" + req.params.id)
         }
@@ -74,8 +77,10 @@ router.delete("/:commentId", middleware.checkCommentOwnership, (req, res) => {
     Comment.findByIdAndRemove(req.params.commentId, (err, result) => {
         if (err) {
             console.log("error deleting comment" + err);
+            req.flash("error", "Error deleting comment");
             res.redirect("/recipes/" + req.params.id)
         } else {
+            req.flash("success", "Comment deleted");
             res.redirect("/recipes/" + req.params.id)
         }
     })

@@ -17,7 +17,7 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/recipes">Recipe App </a>
+        <a class="navbar-brand" href="/recipes"><i class="fas fa-cookie"></i>Recipe App </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -39,5 +39,18 @@
                 <% } %>
             </ul>
         </div>
-
     </nav>
+
+    <!--BOOTSTRAP STYLING FOR FLASH MESSAGING-->
+    <div class="container">
+        <% if(error && error.length>0){ %>
+        <div class="alert alert-danger" role="alert">
+            <p><%=error%></p>
+        </div>
+        <% } %>
+        <% if(success && success.length>0){ %>
+        <div class="alert alert-success" role="alert">
+            <p> <%=success%></p>
+        </div>
+        <% } %>
+    </div>

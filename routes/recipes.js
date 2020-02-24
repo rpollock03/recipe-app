@@ -41,7 +41,6 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
     })
 })
 
-
 // SHOW ROUTE - must be below /new
 router.get("/:id", (req, res) => {
     // so without the populate/exec, it would return the recipe object, BUT as defined by recipe schema, the comments would just be an array of comment ids. We want the ACTUAL comments. so .populate makes that happen, while .exec runs the actual query.     

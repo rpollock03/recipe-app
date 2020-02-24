@@ -6,9 +6,7 @@ const User = require("../models/user")
 // AUTH ROUTES
 
 // get register page
-router.get("/register", (req, res) => {
-    res.render("register");
-})
+router.get("/register", (req, res) => res.render("register"))
 
 // handle user register logic
 router.post("/register", (req, res) => {
@@ -21,19 +19,19 @@ router.post("/register", (req, res) => {
     User.register(newUser, req.body.password, (err, registeredUser) => {
         if (err) {
             console.log(err);  // localmongoose includes error messages which we can pass on to user
+            req.flash("error", err.message)
             return res.render("register");
         }
         // if registation successful log them in
         passport.authenticate("local")(req, res, function () {
+            req.flash("success", "Welcome, " + user.username);
             res.redirect("/recipes");
         })
     })
 })
 
 //show login form
-router.get("/login", (req, res) => {
-    res.render("login");
-})
+router.get("/login", (req, res) => res.render("login"))
 
 // handle login logic
 router.post("/login", passport.authenticate("local",
@@ -50,13 +48,10 @@ router.post("/login", passport.authenticate("local",
 //logout route
 router.get("/logout", (req, res) => {
     req.logout();
+    req.flash("success", "Logged you out!");
     res.redirect("/");
 })
 
 //.logout method comes with packages we installed
-
-
-
-
 
 module.exports = router;
