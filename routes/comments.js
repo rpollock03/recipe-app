@@ -35,9 +35,7 @@ router.post("/", isLoggedIn, (req, res) => {
                     comment.save();
                     foundRecipe.comments.push(comment);
                     foundRecipe.save();
-                    console.log(foundRecipe);
-                    console.log(comment.author);
-                    console.log(comment);
+
                     res.redirect("/recipes/" + foundRecipe._id)
                 }
             })
