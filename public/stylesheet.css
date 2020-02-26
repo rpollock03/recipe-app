@@ -27,21 +27,23 @@
 #landing-title{
     color:white;
     text-align:center;
-    padding-top:40vh;
+    padding-top:30vh;
 }
-
+ 
 #landingLoginForm{
-    
-   
-    padding-left:32%;
-    padding-top:20px;
+    padding-top:15px;
+    text-align:center;
+    display: inline-block;
+    float:none;
+    margin: 0 auto;
     
 }
 
 #landingSignupForm{
-    
-    
-    width: 35vw;
-    padding-top:20px;
+    padding-top:15px;
+    text-align:center;
+    display: inline-block;
+    float:none;
+    margin: 0 auto;
     
 }
