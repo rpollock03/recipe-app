@@ -9,3 +9,39 @@
 .inline-form-button{
     display:inline;
 }
+/*--------------*/
+/* LANDING PAGE */
+/*--------------*/
+#landing-background{
+    background-image: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),url("images/brooke-lark-wMzx2nBdeng-unsplash (1).jpg");
+    width: 100vw;
+    height:100vh;
+      background-position: center; 
+  background-repeat: no-repeat; 
+  background-size: cover; 
+}
+
+#landing-title{
+    color:white;
+    text-align:center;
+    padding-top:40vh;
+}
+
+#landingLoginForm{
+    
+   
+    padding-left:32%;
+    padding-top:20px;
+    
+}
+
+#landingSignupForm{
+    
+    
+    width: 35vw;
+    padding-top:20px;
+    
+}
