@@ -24,10 +24,15 @@
   background-size: cover; 
 }
 
+#landingFlashMessaging{
+    position:absolute;
+
+}
+
 #landing-title{
     color:white;
     text-align:center;
-    padding-top:30vh;
+    padding-top:25vh;
 }
  
 #landingLoginForm{
@@ -45,5 +50,22 @@
     display: inline-block;
     float:none;
     margin: 0 auto;
-    
+}
+
+.recipesBackground{
+    background-image: linear-gradient(
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.1)
+    ),url("images/lukas-blazek-EWDvHNNfUmQ-unsplash.jpg");
+    width: 100vw;
+    height:100vh;
+      background-position: center; 
+  background-repeat: no-repeat; 
+  background-size: cover; 
+
+
+}
+
+.showRecipeCards{
+    max-width:20vw;
 }

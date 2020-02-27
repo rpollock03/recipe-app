@@ -18,9 +18,8 @@ router.post("/register", (req, res) => {
     })
     User.register(newUser, req.body.password, (err, registeredUser) => {
         if (err) {
-            console.log(err);  // localmongoose includes error messages which we can pass on to user
-            req.flash("error", err.message)
-            return res.render("register");
+            req.flash("error", err.message) //err contains mongoosepassportlocal error message. 
+            res.redirect("/");
         }
         // if registation successful log them in
         passport.authenticate("local")(req, res, function () {
@@ -37,8 +36,11 @@ router.get("/login", (req, res) => res.render("login"))
 router.post("/login", passport.authenticate("local",
     {
         successRedirect: "/recipes",
-        failureRedirect: "/login"
+        successFlash: "Welcome back!",
+        failureRedirect: "/",
+        failureFlash: true
     }));
+
 
 //app.post /login middleware callback. break it up for readability. MIDDLEWAR
 // .authenticated setup with passport.use(new LocalStrategy(User.authenticate()));

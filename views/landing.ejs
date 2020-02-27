@@ -1,76 +1,109 @@
-<%- include("./partials/header") %>
+<!DOCTYPE html>
+<html lang="en">
 
-<div id="landing-background">
-    <div id="landing-title">
-        <h1>Welcome to Resapea!</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <p class="lead"><em>A simple web-app for storing your favourite recipes.</em> </p>
-        <hr style="width:200px">
-        <a id="landingSignupBtn" href="#" class="btn btn-lg btn-info">Sign-up</a>
-        <a id="landingLoginBtn" href="#" class="btn btn-lg btn-info">Login</a>
-        <br>
+    <script src="https://kit.fontawesome.com/7c35c829de.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-        <form id="landingLoginForm" action="/login" method="post" class="mx-auto">
-            <div class="form-group">
-                <input type="text" name="username" placeholder="username" class="form-control">
+    <link rel="stylesheet" type="text/css" href="/stylesheet.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="landing-background">
+        <div id="landingFlashMessagin" class="container text-center">
+            <% if(error && error.length>0){ %>
+            <div class="alert alert-danger" role="alert">
+                <p><%=error%></p>
             </div>
-            <div class="form-group">
-                <input type="password" name="password" placeholder="password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-primary mb-2">Login</button>
-        </form>
-        <form id="landingSignupForm" action="/register" method="post" class=" mx-auto">
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <input type="text" name="username" placeholder="username" class="form-control">
+            <% } %>
+        </div>
+        <div id="landing-title">
+            <h1>Welcome to Resapea!</h1>
+
+            <p class="lead"><em>A simple web-app for storing your favourite recipes.</em> </p>
+            <hr style="width:200px">
+            <a id="landingSignupBtn" href="#" class="btn btn-lg btn-info">Sign-up</a>
+            <a id="landingLoginBtn" href="#" class="btn btn-lg btn-info">Login</a>
+            <br>
+
+            <form id="landingLoginForm" action="/login" method="post" class="mx-auto">
+                <div class="form-group">
+                    <input type="text" required name="username" placeholder="username" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="password" required name="password" placeholder="password" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Login</button>
+            </form>
+            <form id="landingSignupForm" action="/register" method="post" class=" mx-auto">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <input type="text" required name="username" placeholder="username" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <input type="email" required name="email" placeholder="email" class="form-control">
+                        </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="form-group">
-                        <input type="email" name="email" placeholder="email" class="form-control">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <input type="password" requiredname="password" placeholder="password" class="form-control">
+                        </div>
+
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <input type="password" required name="confirmPassword" placeholder="confirm password"
+                                class="form-control">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <input type="password" name="password" placeholder="password" class="form-control">
-                    </div>
+                <button type="submit" class="btn btn-primary mb-2">Sign up</button>
+            </form>
 
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <input type="password" name="confirmPassword" placeholder="confirm password"
-                            class="form-control">
-                    </div>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary mb-2">Sign up</button>
-        </form>
+        </div>
 
-    </div>
-
-    <script>
-        $("nav").hide();
-        $("#landingLoginForm").hide();
-        $("#landingSignupForm").hide();
-
-        $("#landingLoginBtn").click(function () {
-            $("#landingSignupForm").hide();
-            $("#landingLoginForm").fadeToggle();
-        });
-        $("#landingSignupBtn").click(function () {
+        <script>
+            $("nav").hide();
             $("#landingLoginForm").hide();
-            $("#landingSignupForm").fadeToggle();
-        });
+            $("#landingSignupForm").hide();
+
+            $("#landingLoginBtn").click(function () {
+                $("#landingSignupForm").hide();
+                $("#landingLoginForm").fadeToggle();
+            });
+            $("#landingSignupBtn").click(function () {
+                $("#landingLoginForm").hide();
+                $("#landingSignupForm").fadeToggle();
+            });
 
 
 
 
-    </script>
-    <%- include("./partials/footer") %>
+        </script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+            integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+            crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+            integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+            crossorigin="anonymous"></script>
+</body>
 
-    <!--on page load, background fades.
+</html>
+
+<!--on page load, background fades.
 button bounces
 -->
