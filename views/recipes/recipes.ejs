@@ -1,26 +1,42 @@
 <%- include("../partials/header") %>
 <div class="recipesBackground">
-    <% if(currentUser){ %>
-    <h4>Welcome, <%=currentUser.username%></h4>
-    <% } %>
-    <h1 class="text-center"> My recipes </h1>
-    <a href="/recipes/new"><button class="btn btn-success center-block">Add New Recipe</button></a>
+
+    <h1 class="text-center pt-5" style="color:white"> All recipes </h1>
+    <div class="col-12 text-center">
+        <a href="/recipes/new"><button class="btn btn-success ml-auto">Add New Recipe</button></a>
+    </div>
     <br>
-    <div class="container">
-        <div class="row">
+    <div class="container text-center">
+        <div class="row card-deck">
             <% recipes.forEach(function(recipe){ %>
-            <div class="card col-6 col-md-3">
-                <img class="card-img-top imagesRecipesPage" src="<%=recipe.image%>" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title"><%= recipe.name %></h5>
-                    <p class="card-text"><%= recipe.oneLiner %>></p>
-                    <footer class="blockquote-footer">by <%= recipe.author.username %></footer>
-                    <a href="/recipes/<%=recipe._id%>" class="btn btn-primary">Let's make this!</a>
+            <div class="col-6 col-md-4">
+                <!--card -->
+                <div class="card mb-1 recipeCards">
+                    <img class="card-img recipes-page-images" src="<%=recipe.image%>">
+                    <div class="card-body">
+                        <h4 class="card-title"><%= recipe.name %></h4>
+                        <small class="text-muted timeUserInfo">
+                            <i class="far fa-clock text-info"></i> 30 minutes
+                            <i class="fas fa-users text-info"></i> by <%= recipe.author.username %>
+                        </small>
+                        <p class="card-text"><%= recipe.oneLiner.substring(0,70) %>...</p>
+                        <a href="recipes/<%=recipe._id%>" class="btn btn-info">Read Recipe</a>
+                    </div>
+                    <div class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
+                        <div class="views">Oct 20, 12:45pm</div>
+                        <div class="stats">
+                            <i class="far fa-star"></i> 4.5
+                            <i class="far fa-comment"></i> 12
+                        </div>
+
+                    </div>
                 </div>
             </div>
+
             <% });%>
         </div>
     </div>
+
 
 </div>
 <%- include("../partials/footer") %>

@@ -1,8 +1,8 @@
 <%- include("../partials/header") %>
 <div class="container">
-    <h1 class="text-center"> new recipe form </h1>
+    <h1 class="text-center pt-5"> new recipe form </h1>
 
-    <form id="newRecipeForm">
+    <form id="newRecipeForm" class="col-12 col-md-6 mx-auto">
         <div class="form-group">
             <label for="name"> Recipe Name </label>
             <input name="name" id="name" type="text" placeholder="recipe name" required class="form-control">
@@ -16,24 +16,34 @@
             <input name="oneLiner" id="oneLiner" type="text" placeholder="describe your recipe" class="form-control">
         </div>
         <div class="form-group">
+            <label for="timeToMake">Time to make </label>
+            <input name="timeToMake" id="timeToMake" type="number" placeholder="How long to make?" class="form-control">
+        </div>
+        <div class="form-group">
             <label for="method"> Method </label>
             <textarea id="method" name="method" class="form-control">method here</textarea>
         </div>
 
-        <div class="form-group">
-            <label for="ingredient">Ingredients:</label>
-            <input name="ingredient" id="ingredient" placeholder="add ingredient" class="form-control">
-            <ul id="ingredientListUL">
-        </div>
-        <div class="form-group">
-            <label for="quantity">Quantity:</label>
-            <input name="quantity" id="quantity" placeholder="#" class="form-control">
-            <button id="addIngBtn" class="btn btn-primary" type="button">Add</button>
+        <div class="form-group form-row">
+            <div class="col-6">
+                <label for="ingredient">Ingredients:</label>
+                <input name="ingredient" id="ingredient" placeholder="ingredient" class="form-control">
+            </div>
+            <div class="col-6">
+                <div class="input-group pt-4 mt-2">
+
+                    <input type="text" name="quantity" id="quantity" class="form-control" placeholder="quantity">
+                    <div class="input-group-append">
+                        <button id="addIngBtn" class="btn btn-outline-secondary" type="button">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="ingredientsFormList" id="ingredientListUL">
+
         </div>
 
         <button class="btn btn-primary" id="submitBtn" type="button">submit</button>
-
-
 
     </form>
 </div>
@@ -50,7 +60,7 @@
             $("#ingredient").val(""); //reset ingredient input
             $("#quantity").val("");
             $("ul").append(
-                "<li><span><i class='fas fa-trash'></i></span>" + ingredient + " - " + quantity + "</li>"
+                "<li><span class='deleteIngredientIcon'><i class='fas fa-trash'></i></span>" + ingredient + " - " + quantity + "</li>"
             );
         });
 

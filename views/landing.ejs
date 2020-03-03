@@ -17,9 +17,9 @@
 <body>
 
     <div id="landing-background">
-        <div id="landingFlashMessagin" class="container text-center">
+        <div class="container text-center">
             <% if(error && error.length>0){ %>
-            <div class="alert alert-danger" role="alert">
+            <div class="flashAlert alert alert-danger" role="alert">
                 <p><%=error%></p>
             </div>
             <% } %>
