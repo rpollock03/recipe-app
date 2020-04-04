@@ -1,3 +1,17 @@
+/*---------------*/
+/* MULTI-PAGE CSS*/
+/*---------------*/
+
+/*for stopping items appearing while page loads*/
+.hiddenOnLoad{
+visibility: hidden;
+}
+
+.iInTitle{
+  color:blue;
+}
+ 
+
 /*--------------*/
 /* LANDING PAGE */
 /*--------------*/
@@ -22,14 +36,14 @@
     text-align:center;
     padding-top:25vh;
 }
- 
+
+
 #landingLoginForm{
     padding-top:15px;
     text-align:center;
     display: inline-block;
     float:none;
-    margin: 0 auto;
-    
+    margin: 0 auto;   
 }
 
 #landingSignupForm{
@@ -39,6 +53,11 @@
     float:none;
     margin: 0 auto;
 }
+
+/*--------------*/
+/* RECIPES PAGE */
+/*--------------*/
+
 
 .recipesBackground{
     background-image: linear-gradient(
