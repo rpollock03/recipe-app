@@ -56,17 +56,18 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <input type="password" requiredname="password" placeholder="password" class="form-control">
+                            <input type="password" id="signupPassword" requiredname="password" placeholder="password"
+                                class="form-control">
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <input type="password" required name="confirmPassword" placeholder="confirm password"
-                                class="form-control">
+                            <input type="password" id="signupConfirmPassword" required name="confirmPassword"
+                                placeholder="confirm password" class="form-control">
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary mb-2">Sign up</button>
+                <button type="submit" id="submitSignupForm" class="btn btn-primary mb-2">Sign up</button>
             </form>
         </div>
 
@@ -76,10 +77,8 @@
                 $("#landingLoginForm").removeClass("hiddenOnLoad");
                 $("#landingLoginForm").hide();
                 $("#landingSignupForm").hide();
-
                 $("nav").hide();
             });
-
 
             $("#landingLoginBtn").click(function () {
                 $("#landingSignupForm").hide();
@@ -89,6 +88,22 @@
                 $("#landingLoginForm").hide();
                 $("#landingSignupForm").fadeToggle();
             });
+
+            //password validation
+            $("#submitSignupForm").click(function (event) {
+                event.preventDefault();
+                var password1 = $("#signupPassword").val()
+                var password2 = $("#signupConfirmPassword").val()
+                if (password1 == '') alert("Please enter Password");
+                if (password1 != '' && password2 == '') alert("Please confirm Password");
+                if (password1 != '' && password2 != '' && password1 != password2) alert("Passwords don't match!")
+                if (password1 != '' && password1 == password2) {
+                    $("#landingSignupForm").submit();
+                }
+            })
+
+
+
 
 
         </script>
