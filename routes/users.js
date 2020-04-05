@@ -23,7 +23,7 @@ router.post("/register", (req, res) => {
         }
         // if registation successful log them in
         passport.authenticate("local")(req, res, function () {
-            req.flash("success", "Welcome, " + user.username);
+            //req.flash("success", "Welcome, "+ user.username);
             res.redirect("/recipes");
         })
     })

@@ -16,7 +16,7 @@
             <input name="oneLiner" id="oneLiner" type="text" placeholder="describe your recipe" class="form-control">
         </div>
         <div class="form-group">
-            <label for="timeToMake">Time to make </label>
+            <label for="timeToMake">Time to make (minutes) </label>
             <input name="timeToMake" id="timeToMake" type="number" placeholder="How long to make?" class="form-control">
         </div>
         <div class="form-group">
@@ -59,7 +59,7 @@
             let quantity = $("#quantity").val();
             $("#ingredient").val(""); //reset ingredient input
             $("#quantity").val("");
-            $("ul").append(
+            $("#ingredientListUL").append(
                 "<li><span class='deleteIngredientIcon'><i class='fas fa-trash'></i></span>" + ingredient + " - " + quantity + "</li>"
             );
         });
@@ -87,6 +87,7 @@
                 var image = $("#image").val();
                 var oneLiner = $("#oneLiner").val();
                 var method = $("#method").val();
+                var timeToMake = $("#timeToMake").val();
                 ingredients = ingredients;
                 // ajax post request sending data to server
                 $.ajax({
@@ -98,6 +99,7 @@
                         image: image,
                         oneLiner: oneLiner,
                         method: method,
+                        timeToMake: timeToMake,
                         ingredients: ingredients
                     },
                     success: () => window.location = "/recipes"

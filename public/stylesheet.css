@@ -15,6 +15,7 @@ visibility: hidden;
 /*--------------*/
 /* LANDING PAGE */
 /*--------------*/
+
 #landing-background{
     background-image: linear-gradient(
       rgba(0, 0, 0, 0.5),
@@ -37,7 +38,6 @@ visibility: hidden;
     padding-top:25vh;
 }
 
-
 #landingLoginForm{
     padding-top:15px;
     text-align:center;
@@ -55,20 +55,44 @@ visibility: hidden;
 }
 
 /*--------------*/
-/* RECIPES PAGE */
+/* MAIN NAVBAR */
 /*--------------*/
 
+#mainNavbar{
+  height:7vh;
+  font-weight: 100;
+  background-color: #366b82;
+}
+
+#mainNavbar a{
+  color:white;
+}
+
+.nav-item:hover{
+font-size:1.2em;
+}
+/*-----------------*/
+/* FLASH MESSAGING */
+/*-----------------*/
+#flashMessaging{
+  position:absolute;
+  margin-top:30px;
+}
+
+/*--------------*/
+/* RECIPES PAGE */
+/*--------------*/
 
 .recipesBackground{
     background-image: linear-gradient(
       rgba(0, 0, 0, 0.4),
       rgba(0, 0, 0, 0.4)
     ),url("images/simon-matzinger-2JONUbTfN38-unsplash.jpg");
-    width: 100vw;
-    
-      background-position: center; 
-  background-repeat: repeat; 
-  background-size: cover; 
+    width: 100%;
+    height:100%;
+    background-position: center; 
+    background-repeat: repeat-y; 
+    background-size: cover; 
 }
 
 .showRecipeCards{

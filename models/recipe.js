@@ -14,6 +14,7 @@ var recipeSchema = new Schema({
     image: String,
     oneLiner: String,
     method: String,
+    timeToMake: Number,
     ingredients: [String],
     comments: [
         {   // .comments property should be an array of comment ids

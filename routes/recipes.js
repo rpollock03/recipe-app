@@ -5,9 +5,9 @@ var middleware = require("../middleware") //because file is named index.js it kn
 
 // NOTE: all of these routes preceded by /recipes. So "/" here is really the "/recipes" route
 
-// INDEX ROUTE
+// INDEX ROUTE - the "@username's recipes main home page"
 router.get("/", middleware.isLoggedIn, (req, res) => {
-    Recipe.find({}, (err, foundRecipes) => {
+    Recipe.find({ "author.username": req.user.username }, (err, foundRecipes) => {
         if (err) {
             console.log("error finding recipes by author" + err);
         } else {
@@ -30,6 +30,7 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
         image: req.body.image,
         oneLiner: req.body.oneLiner,
         method: req.body.method,
+        timeToMake: req.body.timeToMake,
         ingredients: req.body.ingredients
     };
 
