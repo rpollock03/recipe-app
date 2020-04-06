@@ -1,11 +1,12 @@
 <%- include("../partials/header") %>
-<div class="recipesBackground">
+<div class="showRecipeBackground showStyling">
     <div class="container">
-        <div>
-            <h2> let's make <%=recipe.name %> !!</h2>
-            <h4><em> by <%=recipe.author.username %> </em></h4>
-            <p class="card-text"><i class="far fa-clock pr-2"></i>07/24/2018</p>
+        <div class="text-center">
+            <h1 class="pt-5"> let's make <%=recipe.name %> !!</h1>
+            <span><em> by <%=recipe.author.username %> </em></span>
+            <span class="card-text"><i class="far fa-clock pr-2"></i>07/24/2018</span>
         </div>
+        <br>
         <div class="row">
             <div class="col-md-6">
                 <img src="<%=recipe.image%>" class="img-responsive imagesShowPage">
@@ -27,19 +28,23 @@
                 <br>
                 <!--&& because if no user logged in would be error otherwise-->
                 <%if(currentUser && recipe.author.id.equals(currentUser._id)){    %>
-                <form class="inline-form-button" action="/recipes/<%=recipe._id%>?_method=DELETE" method="post">
-                    <button class="btn btn-danger">Delete</button>
+                <form style='display:inline' class="inline-form-button" action="/recipes/<%=recipe._id%>?_method=DELETE"
+                    method="post">
+                    <button class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete recipe</button>
                 </form>
-                <a class="btn btn-warning inline-form-button" href="/recipes/<%=recipe._id%>/edit">Edit</a>
+                <a class="btn btn-warning inline-form-button" href="/recipes/<%=recipe._id%>/edit"><i
+                        class="fas fa-edit"></i> Edit recipe</a>
                 <%  }  %>
                 <br>
 
             </div>
         </div>
 
-        <div class="container">
+        <div>
+            <h3><i class="fas fa-comments"></i> Comment Section</h3>
 
-            <a class="btn btn-success" href="/recipes/<%=recipe._id%>/comments/new">leave review</a>
+            <a class="btn btn-success" href="/recipes/<%=recipe._id%>/comments/new"><i class="fas fa-plus"></i> New
+                Comment</a>
 
             <hr>
             <% recipe.comments.forEach(function(comment){ %>
@@ -50,10 +55,10 @@
                     <p><%- comment.text %> </p>
                     <%if(currentUser && comment.author.id.equals(currentUser._id)){    %>
                     <a class="btn btn-xs btn-warning inline-form-button"
-                        href="/recipes/<%=recipe._id%>/comments/<%=comment._id%>/edit">edit</a>
-                    <form class="inline-form-button"
+                        href="/recipes/<%=recipe._id%>/comments/<%=comment._id%>/edit"><i class="fas fa-edit"></i></a>
+                    <form style='display:inline' class="inline-form-button"
                         action="/recipes/<%=recipe._id%>/comments/<%=comment._id%>?_method=DELETE" method="post">
-                        <button class="btn btn-xs btn-danger">Delete</button>
+                        <button class="btn btn-xs btn-danger"><i class="fas fa-trash-alt"></i></button>
                     </form>
                     <% }; %>
                 </div>

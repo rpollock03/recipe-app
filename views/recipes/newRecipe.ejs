@@ -1,51 +1,54 @@
 <%- include("../partials/header") %>
-<div class="container">
-    <h1 class="text-center pt-5"> new recipe form </h1>
+<div class="recipesBackground">
+    <div class="container formStyling">
+        <h1 class="text-center pt-5"> new recipe form </h1>
 
-    <form id="newRecipeForm" class="col-12 col-md-6 mx-auto">
-        <div class="form-group">
-            <label for="name"> Recipe Name </label>
-            <input name="name" id="name" type="text" placeholder="recipe name" required class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="image"> Recipe Image </label>
-            <input name="image" id="image" type="text" placeholder="recipe image" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="oneLiner">One Liner </label>
-            <input name="oneLiner" id="oneLiner" type="text" placeholder="describe your recipe" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="timeToMake">Time to make (minutes) </label>
-            <input name="timeToMake" id="timeToMake" type="number" placeholder="How long to make?" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="method"> Method </label>
-            <textarea id="method" name="method" class="form-control">method here</textarea>
-        </div>
-
-        <div class="form-group form-row">
-            <div class="col-6">
-                <label for="ingredient">Ingredients:</label>
-                <input name="ingredient" id="ingredient" placeholder="ingredient" class="form-control">
+        <form id="newRecipeForm" class="col-12 col-md-6 mx-auto ">
+            <div class="form-group">
+                <label for="name"> Recipe Name </label>
+                <input name="name" id="name" type="text" placeholder="recipe name" required class="form-control">
             </div>
-            <div class="col-6">
-                <div class="input-group pt-4 mt-2">
+            <div class="form-group">
+                <label for="image"> Recipe Image </label>
+                <input name="image" id="image" type="text" placeholder="recipe image" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="oneLiner">One Liner </label>
+                <input name="oneLiner" id="oneLiner" type="text" placeholder="describe your recipe"
+                    class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="timeToMake">Time to make (minutes) </label>
+                <input name="timeToMake" id="timeToMake" type="number" placeholder="How long to make?"
+                    class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="method"> Method </label>
+                <textarea id="method" name="method" class="form-control">method here</textarea>
+            </div>
 
-                    <input type="text" name="quantity" id="quantity" class="form-control" placeholder="quantity">
-                    <div class="input-group-append">
-                        <button id="addIngBtn" class="btn btn-outline-secondary" type="button">Add</button>
+            <div class="form-group form-row">
+                <div class="col-6">
+                    <label for="ingredient">Ingredients:</label>
+                    <input name="ingredient" id="ingredient" placeholder="ingredient" class="form-control">
+                </div>
+                <div class="col-6">
+                    <div class="input-group pt-4 mt-2">
+
+                        <input type="text" name="quantity" id="quantity" class="form-control" placeholder="quantity">
+                        <div class="input-group-append">
+                            <button id="addIngBtn" class="btn btn-outline-secondary" type="button">Add</button>
+                        </div>
                     </div>
                 </div>
+
+                <ul class="ingredientsFormList" id="ingredientListUL">
+
             </div>
 
-            <ul class="ingredientsFormList" id="ingredientListUL">
-
-        </div>
-
-        <button class="btn btn-primary" id="submitBtn" type="button">submit</button>
-
-    </form>
+            <button class="btn btn-primary" id="submitBtn" type="button">submit</button>
+        </form>
+    </div>
 </div>
 
 <%- include("../partials/footer") %>

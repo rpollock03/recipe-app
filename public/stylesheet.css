@@ -7,10 +7,22 @@
 visibility: hidden;
 }
 
+/*Logo*/
 .iInTitle{
   color:blue;
 }
- 
+ /*wooden background*/
+.recipesBackground{
+    background-image: linear-gradient(
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.4)
+    ),url("images/simon-matzinger-2JONUbTfN38-unsplash.jpg");
+    width: 100%;
+    height:100%;
+    background-position: center; 
+    background-size: cover; 
+    background-repeat: repeat-y; 
+}
 
 /*--------------*/
 /* LANDING PAGE */
@@ -83,17 +95,18 @@ font-size:1.2em;
 /* RECIPES PAGE */
 /*--------------*/
 
-.recipesBackground{
-    background-image: linear-gradient(
-      rgba(0, 0, 0, 0.4),
-      rgba(0, 0, 0, 0.4)
-    ),url("images/simon-matzinger-2JONUbTfN38-unsplash.jpg");
-    width: 100%;
-    height:100%;
-    background-position: center; 
-    background-repeat: repeat-y; 
-    background-size: cover; 
+
+
+.recipeCards{
+  height:80vh;
 }
+
+@media (min-width:600px){
+  .recipeCards{
+    height:400px;
+  }
+}
+
 
 .showRecipeCards{
     max-width:20vw;
@@ -101,7 +114,7 @@ font-size:1.2em;
 
 .recipes-page-images{
 height:40%;
-max-height:27vh;
+height:160px;
 object-fit:cover;
 
 }
@@ -123,6 +136,11 @@ object-fit:cover;
 }
 
 /* new recipe form */
+
+.formStyling{
+background-color:white;
+  width:70vw;
+}
 
 .ingredientsFormList{
   list-style:none; 
@@ -155,4 +173,25 @@ object-fit:cover;
 .ingredientsFormList>li:hover .deleteIngredientIcon{
   width: 40px;
   opacity: 1;
+}
+
+
+/*show page styling*/
+
+.showStyling{
+  color:white;
+}
+
+.showRecipeBackground{
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.7),
+      rgba(0, 0, 0, 0.7)
+    ),url("images/simon-matzinger-2JONUbTfN38-unsplash.jpg");
+    width: 100%;
+    height:100%;
+    background-position: center; 
+    background-size: cover; 
+    background-repeat: repeat-y; 
+
+
 }
