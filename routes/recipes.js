@@ -16,6 +16,19 @@ router.get("/", middleware.isLoggedIn, (req, res) => {
     })
 })
 
+//all recipes page
+router.get("/all", middleware.isLoggedIn, (req, res) => {
+    Recipe.find({}, (err, foundRecipes) => {
+        if (err) {
+            console.log("error finding recipes by author" + err);
+        } else {
+            res.render("recipes/allRecipes", { recipes: foundRecipes })
+        }
+    })
+})
+
+
+
 // NEW ROUTE
 router.get("/new", middleware.isLoggedIn, (req, res) => res.render("recipes/newRecipe"));
 

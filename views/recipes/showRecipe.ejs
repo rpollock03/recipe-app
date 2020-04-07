@@ -3,25 +3,55 @@
     <div class="container">
         <div class="text-center">
             <h1 class="pt-5"> let's make <%=recipe.name %> !!</h1>
-            <span><em> by <%=recipe.author.username %> </em></span>
-            <span class="card-text"><i class="far fa-clock pr-2"></i>07/24/2018</span>
+            <span><em> Posted by @<%=recipe.author.username %> on 07/24/2018</em></span>
         </div>
         <br>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 order-2 order-md-1">
                 <img src="<%=recipe.image%>" class="img-responsive imagesShowPage">
                 <div>
-                    <p><em><%=recipe.oneLiner%></em></p>
+                    <p><em>"<%=recipe.oneLiner%>"</em> - @<%=recipe.author.username %></p>
+                </div>
+                <br>
+                <h3><i class="fas fa-comments"></i> Comment Section</h3>
+                <br>
+                <a class="btn btn-success" href="/recipes/<%=recipe._id%>/comments/new"><i class="fas fa-plus"></i> New
+                    Comment</a>
+                <br><br>
+
+                <% recipe.comments.forEach(function(comment){ %>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>@<%= comment.author.username %></strong>
+                        <span>10 days ago</span>
+
+                        <%if(currentUser && comment.author.id.equals(currentUser._id)){    %>
+                        <a class="btn btn-xs btn-warning inline-form-button"
+                            href="/recipes/<%=recipe._id%>/comments/<%=comment._id%>/edit"><i
+                                class="fas fa-edit"></i></a>
+                        <form style='display:inline' class="inline-form-button"
+                            action="/recipes/<%=recipe._id%>/comments/<%=comment._id%>?_method=DELETE" method="post">
+                            <button class="btn btn-xs btn-danger"><i class="fas fa-trash-alt"></i></button>
+                        </form>
+                        <p><%= comment.text %> </p>
+                        <hr>
+                        <% }; %>
+                    </div>
                 </div>
 
 
+                <% }) %>
+
 
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 order-1 order-md-2">
                 <h3> Ingredients:</h3>
                 <% recipe.ingredients.forEach(function(ingredient){ %>
                 <li><%= ingredient %> </li>
                 <% })  %>
+                <br>
+                <p> <i class="fas fa-hourglass-start"></i> This should take about <%= recipe.timeToMake%> minutes to
+                    make! </p>
                 <br>
                 <h3> Method:</h3>
                 <p><%= recipe.method %></p>
@@ -35,37 +65,13 @@
                 <a class="btn btn-warning inline-form-button" href="/recipes/<%=recipe._id%>/edit"><i
                         class="fas fa-edit"></i> Edit recipe</a>
                 <%  }  %>
-                <br>
+                <br><br>
 
             </div>
         </div>
-
+        <br>
         <div>
-            <h3><i class="fas fa-comments"></i> Comment Section</h3>
 
-            <a class="btn btn-success" href="/recipes/<%=recipe._id%>/comments/new"><i class="fas fa-plus"></i> New
-                Comment</a>
-
-            <hr>
-            <% recipe.comments.forEach(function(comment){ %>
-            <div class="row">
-                <div class="col-md-12">
-                    <strong>@<%= comment.author.username %></strong>
-                    <span class="pull-right">10 days ago</span>
-                    <p><%- comment.text %> </p>
-                    <%if(currentUser && comment.author.id.equals(currentUser._id)){    %>
-                    <a class="btn btn-xs btn-warning inline-form-button"
-                        href="/recipes/<%=recipe._id%>/comments/<%=comment._id%>/edit"><i class="fas fa-edit"></i></a>
-                    <form style='display:inline' class="inline-form-button"
-                        action="/recipes/<%=recipe._id%>/comments/<%=comment._id%>?_method=DELETE" method="post">
-                        <button class="btn btn-xs btn-danger"><i class="fas fa-trash-alt"></i></button>
-                    </form>
-                    <% }; %>
-                </div>
-            </div>
-
-
-            <% }) %>
 
         </div>
 

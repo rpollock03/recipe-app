@@ -195,3 +195,18 @@ background-color:white;
 
 
 }
+
+hr{
+  display:block;
+  width: 96%;               
+  background-color:rgb(255, 255, 255);
+  height: 1px;
+}
+
+.imagesShowPage{
+  max-width: 100%;
+  display:block;
+ 
+  height: auto;
+
+}
