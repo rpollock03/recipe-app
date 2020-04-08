@@ -3,7 +3,8 @@
 
     <h1 class="text-center pt-5" style="color:white"> @<%=currentUser.username%>'s recipes </h1>
     <div class="col-12 text-center">
-        <a href="/recipes/new"><button class="btn btn-success ml-auto">Add New Recipe</button></a>
+        <a href="/recipes/new"><button class="btn btn-success ml-auto"><i class="fas fa-plus"></i> Add New
+                Recipe</button></a>
     </div>
     <br>
     <div class="container text-center">
@@ -17,7 +18,7 @@
                         <h4 class="card-title"><%= recipe.name %></h4>
                         <small class="text-muted timeUserInfo"><i class="fas fa-hourglass-start text-info"></i>
                             <%= recipe.timeToMake%> minutes
-                            <i class="fas fa-users text-info"></i> by <%= recipe.author.username %>
+                            <i class="fas fa-users text-info"></i> by @<%= recipe.author.username %>
                         </small>
                         <p class="card-text"><%= recipe.oneLiner.substring(0,70) %>...</p>
                         <a href="recipes/<%=recipe._id%>" class="btn btn-info">Read Recipe</a>

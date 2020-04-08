@@ -192,9 +192,9 @@ background-color:white;
     background-position: center; 
     background-size: cover; 
     background-repeat: repeat-y; 
-
-
 }
+
+
 
 hr{
   display:block;
@@ -209,4 +209,14 @@ hr{
  
   height: auto;
 
+}
+
+
+
+/*new or edit recipe page */
+@media (max-width:600px){
+.ingredientsList{
+
+  margin-top:15px;
+}
 }
