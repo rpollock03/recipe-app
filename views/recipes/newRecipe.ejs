@@ -1,10 +1,11 @@
 <%- include("../partials/header") %>
 <div class="bg-light">
-    <div class="container">
+    <div class="container formContainer">
+        <!--TITLE-->
         <h1 class="text-center pt-5"> new recipe form </h1>
-        <form id="newRecipeForm" ">
-            <!--Is this needed? AJAX-->
-            <div class=" row">
+
+        <!--RECIPE NAME AND IMAGE-->
+        <div class=" row">
             <div class="col-6 mb-3">
                 <label for="name"> Recipe Name </label>
                 <input name="name" id="name" type="text" placeholder="recipe name" required class="form-control">
@@ -19,109 +20,72 @@
                     Please include an image!
                 </div>
             </div>
-    </div>
-    <div class="row">
-        <div class="col-md-8">
-            <div class="row mb-3">
-                <!--ingredients/quanityt-->
-                <div class=" col-8">
-                    <label for="ingredient">Ingredients:</label>
-                    <input name="ingredient" id="ingredient" placeholder="ingredient" class="form-control">
-                </div>
-                <div class="col-4">
-                    <div class="input-group pt-4 mt-2">
-                        <input type="text" name="quantity" id="quantity" class="form-control" placeholder="quantity">
-                        <div class="input-group-append">
-                            <button id="addIngBtn" class="btn btn-outline-secondary" type="button"><i
-                                    class="fas fa-plus"></i></button>
+        </div>
+        <!--BODY OF FORM-->
+        <div class="row">
+            <div class="col-md-8 order-2 order-md-1">
+                <div class="row mb-3">
+                    <!--INPUT INGREDIENT/QUANTITY-->
+                    <div class=" col-8">
+                        <label for="ingredient">Ingredients:</label>
+                        <input name="ingredient" id="ingredient" placeholder="ingredient" class="form-control">
+                    </div>
+                    <div class="col-4">
+                        <div class="input-group pt-4 mt-2">
+                            <input type="text" name="quantity" id="quantity" class="form-control"
+                                placeholder="quantity">
+                            <div class="input-group-append">
+                                <button id="addIngBtn" class="btn btn-outline-secondary" type="button"><i
+                                        class="fas fa-plus"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!--One liner-->
-            <div class="mb-3">
-                <label for="oneLiner">One Liner </label>
-                <input name="oneLiner" id="oneLiner" type="text" placeholder="describe your recipe in 1-2 lines"
-                    class="form-control" required>
-                <div class="invalid-feedback">
-                    Description required!
-                </div>
-            </div>
-
-            <!--method-->
-            <div class="mb-3">
-                <label for="method"> Method </label>
-                <textarea id="method" name="method" required class="form-control">method here</textarea>
-            </div>
-            <!--time to make-->
-            <div class="row">
-                <div class="col-6 mb-3">
-                    <label for="timeToMake">Time to make </label>
-                    <input name="timeToMake" id="timeToMake" type="number" placeholder="minutes" class="form-control">
-                </div>
-                <div class="col-6">
-                </div>
-
-            </div>
-            <div class="mb-3">
-                <button class="btn btn-primary btn-lg btn-block" id="submitBtn" type="button">Submit your
-                    recipe!</button>
-            </div>
-
-
-
-        </div>
-        <div class="col-md-4 mb-4 ingredientsList">
-            <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted">Your ingredients:</span>
-                <span>DLTALL</span>
-            </h4>
-            <!--INGREDIENTS LIST HERE-->
-
-            <ul class="list-group mb-3">
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Ingredient name</h6>
-                        <small class="text-muted"> Brief description</small>
+                <!--DESCRIPTION-->
+                <div class="mb-3">
+                    <label for="oneLiner">One Liner </label>
+                    <input name="oneLiner" id="oneLiner" type="text" placeholder="describe your recipe in 1-2 lines"
+                        class="form-control" required>
+                    <div class="invalid-feedback">
+                        Description required!
                     </div>
-                    <span class="text-muted">x 4 </span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Ingredient name</h6>
-                        <small class="text-muted"> Brief description</small>
+                </div>
+                <!--METHOD-->
+                <div class="mb-3">
+                    <label for="method"> Method </label>
+                    <textarea id="method" name="method" required class="form-control"
+                        placeholder="What do you do with the ingredients?"></textarea>
+                </div>
+                <!--TIME TO MAKE-->
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label for="timeToMake">Time to make </label>
+                        <input name="timeToMake" id="timeToMake" type="number" placeholder="minutes"
+                            class="form-control">
                     </div>
-                    <span class="text-muted">x 4 </span>
-                </li>
-
-            </ul>
+                    <div class="col-6">
+                    </div>
+                </div>
+                <!--SUBMIT BUTTON-->
+                <div class="mb-3">
+                    <button class="btn btn-primary btn-lg btn-block" id="submitBtn" type="button">Submit your
+                        recipe!</button>
+                </div>
+                <!--INGREDIENTS LIST-->
+            </div>
+            <div id="ingredientsSection" class="col-md-4 mb-4 ingredientsList order-1 order-md-2 d-none">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">Ingredients:</span>
+                    <span><button type="button" id="deleteAllBtn" class="btn btn-danger"><i class='fas fa-trash'></i>
+                            Delete
+                            All</button></span>
+                </h4>
+                <ul class="list-group mb-3" id="ingredientListUL">
+                    <!--This is where ingredient li's will be appended-->
+                </ul>
+            </div>
         </div>
-
     </div>
-
-
-    <div class="form-group form-row">
-
-
-
-        <ul class="ingredientsFormList" id="ingredientListUL">
-
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </form>
-</div>
 </div>
 
 <%- include("../partials/footer") %>
@@ -131,14 +95,18 @@
     $(document).ready(() => {
         // adds new ingredient and quantity to list and resets input
         $("#addIngBtn").click(() => {
+            //makes ingredient list appear
+            $(".ingredientsList").removeClass("d-none");
+            //add ingredients to lst at side
             let ingredient = $("#ingredient").val();
             let quantity = $("#quantity").val();
             $("#ingredient").val(""); //reset ingredient input
             $("#quantity").val("");
             $("#ingredientListUL").append(
-                "<li><span class='deleteIngredientIcon'><i class='fas fa-trash'></i></span>" + ingredient + " - " + quantity + "</li>"
+                "<li class='list-group-item d-flex justify-content-between lh-condensed'><div><h6 class='my-0'>" + ingredient + "</h6><small class='text-muted'>" + quantity + "</small></div><span class='deleteIngredientIcon'><i class='fas fa-trash'></i></span></li>"
             );
         });
+
 
         // remove ingredient/quantity from list if delete icon clicked
         $("ul").on("click", "span", function (event) {
@@ -150,36 +118,46 @@
             event.stopPropagation();
         });
 
+        if ($("li").length == 0) {
+            $(".ingredientsList").addClass("d-none");
+        }
+
+
+        // delete all button
+        $("#deleteAllBtn").click(() => {
+            $(".list-group-item").remove();
+            $(".ingredientsList").addClass("d-none");
+        })
+
+
         // submits form data to server via ajax and redirects to /recipes
         $("#submitBtn").click(() => {
-            $("#submitBtn").click(() => {
-                // add all ingredients from list to array for transmission to server
-                var ingredients = [];
-                $("#ingredientListUL li").each((index, element) =>
-                    ingredients.push($(element).text())
-                )
-                // data to be sent
-                var name = $("#name").val();
-                var image = $("#image").val();
-                var oneLiner = $("#oneLiner").val();
-                var method = $("#method").val();
-                var timeToMake = $("#timeToMake").val();
-                ingredients = ingredients;
-                // ajax post request sending data to server
-                $.ajax({
-                    url: "http://localhost:5000/recipes",
-                    type: "POST",
-                    dataType: "json",
-                    data: {
-                        name: name,
-                        image: image,
-                        oneLiner: oneLiner,
-                        method: method,
-                        timeToMake: timeToMake,
-                        ingredients: ingredients
-                    },
-                    success: () => window.location = "/recipes"
-                })
+            // add all ingredients from list to array for transmission to server
+            var ingredients = [];
+            $("#ingredientListUL li").each((index, element) =>
+                ingredients.push($(element).text())
+            )
+            // data to be sent
+            var name = $("#name").val();
+            var image = $("#image").val();
+            var oneLiner = $("#oneLiner").val();
+            var method = $("#method").val();
+            var timeToMake = $("#timeToMake").val();
+            ingredients = ingredients;
+            // ajax post request sending data to server
+            $.ajax({
+                url: "http://localhost:5000/recipes",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    name: name,
+                    image: image,
+                    oneLiner: oneLiner,
+                    method: method,
+                    timeToMake: timeToMake,
+                    ingredients: ingredients
+                },
+                success: () => window.location = "/recipes"
             })
         })
     })

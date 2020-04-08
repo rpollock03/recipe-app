@@ -158,21 +158,20 @@ background-color:white;
 }
 
 .deleteIngredientIcon{
-  background: #e74c3c;
-  height: 40px;
-  margin-right: 20px;
-  text-align: center;
-  color: white;
-  width: 0px;
-  display: inline-block;
-  transition: 0.2s linear;
-  opacity: 0;
+  background:  white;
+ width:28px;
+ height:28px;
+ text-align:center;
+
+  
+  color: red;
+  
   border-radius:50%;
 }
 
-.ingredientsFormList>li:hover .deleteIngredientIcon{
-  width: 40px;
-  opacity: 1;
+.deleteIngredientIcon:hover{
+ color: white;
+ background: red;
 }
 
 
@@ -218,5 +217,10 @@ hr{
 .ingredientsList{
 
   margin-top:15px;
+}
+}
+@media (min-width:600px){
+.formContainer{
+  width:70%;
 }
 }
