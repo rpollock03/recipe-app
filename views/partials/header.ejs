@@ -23,18 +23,19 @@
             <span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navLinks">
             <ul class="navbar-nav">
-                <li class="nav-item"> <a class="nav-link" href="#">Settings</a>
-                </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/recipes"> My Recipes
+                    <a class="nav-link" href="/recipes"><i class="fas fa-user"></i> My Recipes
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/recipes/all"> Explore Recipes!
+                    <a class="nav-link" href="/recipes/all"><i class="fas fa-search"></i> Explore
                     </a>
+                </li>
+                <li class="nav-item"> <a class="nav-link" href="/settings"><i class="fas fa-cog"></i> Settings</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link " href="/logout">Logout</a>
+                    <a class="nav-link " href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </li>
 
             </ul>
@@ -44,12 +45,12 @@
     <!--BOOTSTRAP STYLING FOR FLASH MESSAGING-->
     <div class="container" id="flashMessaging">
         <% if(error && error.length>0){ %>
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger pt-3 text-center w-100" role="alert">
             <p><%=error%></p>
         </div>
         <% } %>
         <% if(success && success.length>0){ %>
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success pt-3 text-center w-100" role="alert">
             <p> <%=success%></p>
         </div>
         <% } %>

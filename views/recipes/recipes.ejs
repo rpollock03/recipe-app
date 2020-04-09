@@ -8,11 +8,11 @@
     </div>
     <br>
     <div class="container text-center">
-        <div class="row card-deck">
+        <div class="row card-deck pb-5">
             <% recipes.forEach(function(recipe){ %>
             <div class="col-6 col-md-4">
                 <!--card -->
-                <div class="card mb-1 recipeCards">
+                <div class="card mb-5 recipeCards">
                     <img class="card-img recipes-page-images" src="<%=recipe.image%>">
                     <div class="card-body">
                         <h4 class="card-title"><%= recipe.name %></h4>

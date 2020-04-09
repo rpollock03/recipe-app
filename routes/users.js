@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-const User = require("../models/user")
+const User = require("../models/user");
+var middleware = require("../middleware") //because file is named index.js it knows to be required without having to specify
+
 
 // AUTH ROUTES
 
@@ -54,5 +56,48 @@ router.get("/logout", (req, res) => {
 })
 
 //.logout method comes with packages we installed
+
+//settings page
+router.get("/settings", middleware.isLoggedIn, (req, res) => {
+    User.findOne({ "username": req.user.username }, (err, foundUser) => {
+        if (err) {
+            console.log("error finding user" + err);
+        } else {
+            var emailAddress = foundUser.email;
+            res.render("settings", { email: emailAddress });
+        }
+    })
+})
+
+
+//handle settings logic
+// IMPORTANT - findOne returns object, find returns array of objects so you need to do eg foundUser[0].email; if using that
+router.post("/settings", middleware.isLoggedIn, (req, res) => {
+    User.findOne({ "username": req.user.username }, (err, foundUser) => {
+        if (err) {
+            console.log("error finding user" + err);
+        } else {
+            foundUser.email = req.body.email;
+            foundUser.save((err) => {
+                if (err) {
+                    req.flash("error", "Error updating email address") //err contains mongoosepassportlocal error message. 
+                    res.redirect("/settings");
+                }
+            });
+            foundUser.changePassword(req.body.oldPassword, req.body.newPassword, (err) => {
+                if (err) {
+                    req.flash("error", err.message) //err contains mongoosepassportlocal error message. 
+                    res.redirect("/settings");
+                }
+                else {
+                    req.flash("success", "New user information saved") //err contains mongoosepassportlocal error message. 
+                    res.redirect("/settings");
+                }
+            })
+        }
+    })
+})
+
+
 
 module.exports = router;
