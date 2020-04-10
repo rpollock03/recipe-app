@@ -27,7 +27,7 @@
                 <div class="row mb-3">
                     <!--INPUT INGREDIENT/QUANTITY-->
                     <div class=" col-8">
-                        <label for="ingredient">Ingredients:</label>
+                        <label for="ingredient">Ingredients</label>
                         <input name="ingredient" id="ingredient" placeholder="ingredient" class="form-control">
                     </div>
                     <div class="col-4">
@@ -53,13 +53,12 @@
                 <!--METHOD-->
                 <div class="mb-3">
                     <label for="method"> Method </label>
-                    <textarea id="method" name="method" required class="form-control"
-                        value="<%= recipe.method %>"></textarea>
+                    <textarea id="method" name="method" required class="form-control"><%= recipe.method %></textarea>
                 </div>
                 <!--TIME TO MAKE-->
                 <div class="row">
                     <div class="col-6 mb-3">
-                        <label for="timeToMake">Time to make </label>
+                        <label for="timeToMake">Time to make (minutes) </label>
                         <input name="timeToMake" id="timeToMake" type="number" value="<%= recipe.timeToMake %>"
                             class="form-control">
                     </div>

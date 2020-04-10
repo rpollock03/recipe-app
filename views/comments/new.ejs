@@ -1,13 +1,22 @@
 <%- include("../partials/header") %>
 
-<h1> add new comment to <%= recipe.name %></h1>
-<form action="/recipes/<%=recipe._id%>/comments" method="post">
+<div class="container">
+    <h2 class="text-center mt-5 pt-5"> Comment on @<%= recipe.author.username %>'s <%=recipe.name%> recipe </h2>
+    <form action="/recipes/<%=recipe._id%>/comments" method="post">
+        <div class="form-group">
+            <label for="commentField">Comment:</label>
+            <input id="commentField" class="form-control" required type="text" name="comment[text]"
+                placeholder="comment">
+        </div>
+        <div class="form-group text-center">
+            <button class="btn btn-primary btn-lg inline-form-button" type="submit">submit
+            </button>
+            <a href="/recipes/<%=recipe._id%>"><button class="btn btn-secondary btn-lg inline-form-button"
+                    type="button">cancel </button></a>
+        </div>
+    </form>
+</div>
 
-    <input type="text" name="comment[text]" placeholder="comment">
-
-    <button type="submit">submit
-        comment </button>
-</form>
 
 
 <%- include("../partials/footer") %>

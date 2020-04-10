@@ -20,6 +20,7 @@ visibility: hidden;
     ),url("images/simon-matzinger-2JONUbTfN38-unsplash.jpg");
     width: 100%;
     height:100%;
+    min-height:100vh;
     background-position: center; 
     background-size: cover; 
     background-repeat: repeat-y; 
@@ -81,17 +82,33 @@ visibility: hidden;
   color:white;
 }
 
+#logoMain{
+font-size:30px;
+font-weight:bold;
+font-family: 'Exo 2', sans-serif;
+}
+
+#logoLanding{
+  font-family: 'Exo 2', sans-serif;
+  font-weight:bold;
+  font-size:1.2em;
+}
+
 .nav-item:hover{
 font-size:1.2em;
 }
 /*-----------------*/
 /* FLASH MESSAGING */
 /*-----------------*/
-#flashMessaging{
+.flashMessaging{
   position:absolute;
   margin-top:30px;
 }
 
+.landingFlashMessaging{
+  position:absolute;
+  width:100vw;
+}
 /*--------------*/
 /* RECIPES PAGE */
 /*--------------*/
@@ -123,8 +140,11 @@ object-fit:cover;
   display: inline-block;
   margin-bottom: 1rem;
 }
-
-
+@media (max-width:600px){
+.recipeDescription{
+font-size:0.8em;
+}
+}
 .card-title {
   margin-bottom: 0.3rem;
   

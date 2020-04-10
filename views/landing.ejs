@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/7c35c829de.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/stylesheet.css">
@@ -15,16 +16,27 @@
 <body>
     <!--THE BACKGROUND AND ERROR MESSAGE BANNER-->
     <div id="landing-background">
-        <div class="container text-center">
+        <!--BOOTSTRAP STYLING FOR FLASH MESSAGING-->
+        <div class="container landingFlashMessaging">
             <% if(error && error.length>0){ %>
-            <div class="flashAlert alert alert-danger" role="alert">
+            <div class="alert alert-danger pt-3 text-center " role="alert">
                 <p><%=error%></p>
             </div>
             <% } %>
+            <% if(success && success.length>0){ %>
+            <div class="alert alert-success pt-3 text-center" role="alert">
+                <p> <%=success%></p>
+            </div>
+            <% } %>
         </div>
+
+
+
+
+
         <!--TITLE-->
         <div id="landing-title">
-            <h1>Welcome to <span class="iInTitle">i</span>Cook!</h1>
+            <h1>Welcome to <span id="logoLanding"><span class="iInTitle">i</span>Cook</span></h1>
             <p class="lead"><em>A simple web-app for storing your favourite recipes.</em> </p>
             <hr style="width:200px">
             <a id="landingSignupBtn" href="#" class="btn btn-lg btn-info">Sign-up</a>

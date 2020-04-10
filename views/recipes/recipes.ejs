@@ -20,7 +20,7 @@
                             <%= recipe.timeToMake%> minutes
                             <i class="fas fa-users text-info"></i> by @<%= recipe.author.username %>
                         </small>
-                        <p class="card-text"><%= recipe.oneLiner.substring(0,70) %>...</p>
+                        <p class="card-text recipeDescription"><%= recipe.oneLiner.substring(0,70) %>...</p>
                         <a href="recipes/<%=recipe._id%>" class="btn btn-info">Read Recipe</a>
                     </div>
                     <div class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
