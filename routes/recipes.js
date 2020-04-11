@@ -50,6 +50,7 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
     Recipe.create(newRecipe, (err, saved) => {
         if (err) console.log(err);
         else {
+            req.flash("success", "New recipe added!");
             res.send({ redirect: "/recipes" }); // this necessary???!!!
         }
     })

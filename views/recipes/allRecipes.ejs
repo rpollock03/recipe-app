@@ -16,6 +16,9 @@
                     <img class="card-img recipes-page-images" src="<%=recipe.image%>">
                     <div class="card-body">
                         <h4 class="card-title"><%= recipe.name %></h4>
+                        <% if(recipe.name.length < 18){ %>
+                        <br class="breakAfterTitle">
+                        <% }%>
                         <small class="text-muted timeUserInfo"><i class="fas fa-hourglass-start text-info"></i>
                             <%= recipe.timeToMake%> minutes
                             <i class="fas fa-users text-info"></i> by @<%= recipe.author.username %>
@@ -24,7 +27,7 @@
                         <a href="/recipes/<%=recipe._id%>" class="btn btn-info">Read Recipe</a>
                     </div>
                     <div class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
-                        <div class="views"><i class="far fa-clock text-info"></i> Oct 20, 12:45pm</div>
+                        <div class="views"><i class="far fa-clock text-info"></i> Apr 4, 2020</div>
                         <div class="stats">
                             <i class="far fa-star"></i> 4.5
                             <i class="far fa-comment"></i> <%=recipe.comments.length%>

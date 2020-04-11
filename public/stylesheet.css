@@ -223,6 +223,21 @@ hr{
   height: 1px;
 }
 
+.breakAfterTitle{
+  display:none;
+}
+
+@media (max-width:600px){
+.breakAfterTitle{
+  display:block;
+}
+
+}
+
+.card-title{
+  font-size:1.2em;
+}
+
 #imageShowPage{
   width: 90%;
   object-fit:cover;
