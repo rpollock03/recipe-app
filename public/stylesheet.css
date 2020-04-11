@@ -223,10 +223,11 @@ hr{
   height: 1px;
 }
 
-.imagesShowPage{
-  max-width: 100%;
+#imageShowPage{
+  width: 90%;
+  object-fit:cover;
   display:block;
- 
+  max-height:60vh;
   height: auto;
 
 }

@@ -87,18 +87,19 @@ router.put("/:id/edit", middleware.checkRecipeOwnership, (req, res) => {
         image: req.body.image,
         oneLiner: req.body.oneLiner,
         method: req.body.method,
-        ingredients: req.body.ingredients
+        ingredients: req.body.ingredients,
+        timeToMake: req.body.timeToMake
     }
+
     //new:true returns the updated value in the console.log, otherwise returns previous value. not necessary. 
     Recipe.findByIdAndUpdate(req.params.id, updatedRecipe, { new: true }, (err, saved) => {
         if (err) {
             console.log("error updating recipe" + err);
         } else {
-            res.send({ redirect: "/recipes" }); // this necessary???!!!
+            req.flash("success", "Recipe updated!")
+            res.send({ redirect: "/recipes" + req.params.id });
         }
-
     })
-
 })
 
 // DESTROY ROUTE
@@ -107,6 +108,7 @@ router.delete("/:id", middleware.checkRecipeOwnership, (req, res) => {
         if (err) {
             res.redirect("/recipes");
         } else {
+            req.flash("success", "Recipe deleted!")
             res.redirect("/recipes");
         }
     })

@@ -68,7 +68,7 @@
                 <!--SUBMIT BUTTON-->
                 <div class="row">
                     <div class="col-6 mb-3">
-                        <button class="btn btn-primary btn-lg btn-block" type="button">Update
+                        <button id="submitBtn" class="btn btn-primary btn-lg btn-block" type="button">Update
                             recipe!</button>
                     </div>
                     <div class="col-6 mb-3">
@@ -115,7 +115,7 @@
             $("#ingredient").val(""); //reset ingredient input
             $("#quantity").val("");
             $("#ingredientListUL").append(
-                "<li class='list-group-item d-flex justify-content-between lh-condensed'><div><h6 class='my-0'>" + ingredient + " - " + quantity + "</small></div><span class='deleteIngredientIcon'><i class='fas fa-trash'></i></span></li>"
+                "<li class='list-group-item d-flex justify-content-between lh-condensed'><div><h6 class='my-0'>" + ingredient + " x " + quantity + "</small></div><span class='deleteIngredientIcon'><i class='fas fa-trash'></i></span></li>"
             );
         });
 
@@ -134,7 +134,6 @@
         // delete all button
         $("#deleteAllBtn").click(() => {
             $(".list-group-item").remove();
-            $(".ingredientsList").addClass("d-none");
         })
 
 
@@ -154,8 +153,8 @@
             ingredients = ingredients;
             // ajax post request sending data to server
             $.ajax({
-                url: "http://localhost:5000/recipes",
-                type: "POST",
+                url: "http://localhost:5000/recipes/" + "<%=recipe._id%>" + "/edit",
+                type: "PUT",
                 dataType: "json",
                 data: {
                     name: name,
@@ -165,7 +164,8 @@
                     timeToMake: timeToMake,
                     ingredients: ingredients
                 },
-                success: () => window.location = "/recipes"
+                success: () => window.location = "/recipes/" + "<%=recipe._id%>",
+
             })
         })
     })
